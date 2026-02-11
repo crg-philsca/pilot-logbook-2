@@ -26,7 +26,7 @@ interface LogbookDashboardProps {
 export function LogbookDashboard({ flights, onFlightClick, onAddFlight, totalHours }: LogbookDashboardProps) {
   const [searchQuery, setSearchQuery] = useState('');
 
-  const filteredFlights = flights.filter(flight => 
+  const filteredFlights = flights.filter(flight =>
     flight.departure.toLowerCase().includes(searchQuery.toLowerCase()) ||
     flight.arrival.toLowerCase().includes(searchQuery.toLowerCase()) ||
     flight.aircraft.toLowerCase().includes(searchQuery.toLowerCase())
@@ -83,8 +83,8 @@ export function LogbookDashboard({ flights, onFlightClick, onAddFlight, totalHou
               {searchQuery ? 'No flights found' : 'No flights logged yet'}
             </h3>
             <p className="text-gray-600 mb-8 px-4 leading-relaxed">
-              {searchQuery 
-                ? 'Try adjusting your search criteria' 
+              {searchQuery
+                ? 'Try adjusting your search criteria'
                 : 'Start building your logbook by adding your first flight'}
             </p>
           </div>
@@ -96,7 +96,7 @@ export function LogbookDashboard({ flights, onFlightClick, onAddFlight, totalHou
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3 }}
             >
-              <Card 
+              <Card
                 className="cursor-pointer hover:shadow-lg transition-all duration-200 border-l-4 border-l-blue-600 active:scale-98"
                 onClick={() => onFlightClick(flight)}
                 role="button"
@@ -137,7 +137,15 @@ export function LogbookDashboard({ flights, onFlightClick, onAddFlight, totalHou
       </div>
 
       {/* Floating Add Button */}
-      <div className="fixed bottom-20 right-6 z-10">
+      <div className="fixed bottom-24 right-6 z-10 flex flex-col items-center gap-2">
+        <Button
+          onClick={() => window.location.reload()}
+          size="sm"
+          variant="ghost"
+          className="text-xs text-blue-400 hover:text-blue-600 bg-white/80 backdrop-blur-sm shadow-sm rounded-full px-3 py-1"
+        >
+          Update App
+        </Button>
         <Button
           onClick={onAddFlight}
           size="lg"
