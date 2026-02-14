@@ -63,113 +63,110 @@ export function LogbookDashboard({ flights, onFlightClick, onAddFlight, totalHou
         </div>
       )}
 
-      {/* Header with Summary Stats */}
-      <div className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 pt-8 pb-6 shadow-lg z-10 sticky top-0">
-        <div className="flex items-center justify-between mb-6">
+      {/* Header with Cockpit Design */}
+      <div className="bg-slate-900 text-white px-6 pt-12 pb-8 shadow-2xl z-10 sticky top-0 border-b border-slate-800">
+        <div className="flex items-center justify-between mb-8">
           <div>
-            <h1 className="text-2xl font-bold mb-1 tracking-tight">Logbook</h1>
-            <p className="text-blue-100/80 text-sm font-medium">Flight Deck</p>
+            <div className="text-[10px] text-blue-400 font-bold tracking-[0.2em] uppercase mb-1">Flight Deck</div>
+            <h1 className="text-3xl font-black tracking-tight text-white">LOGBOOK</h1>
           </div>
-          <div className="flex items-center gap-3">
+
+          <div className="flex items-center gap-4">
             <button
               onClick={handleRefresh}
-              className="p-2 rounded-full bg-white/10 hover:bg-white/20 active:scale-95 transition-all text-white/80"
+              className="p-3 rounded-full bg-slate-800 hover:bg-slate-700 active:scale-95 transition-all text-blue-400 border border-slate-700 shadow-inner"
               aria-label="Refresh App"
             >
               <RefreshCw className={`h-5 w-5 ${isRefreshing ? 'animate-spin' : ''}`} />
             </button>
-            <div className="bg-white/20 backdrop-blur-md rounded-2xl px-4 py-2 text-center border border-white/10">
-              <div className="text-2xl font-bold tracking-tight">{totalHours.toFixed(1)}</div>
-              <div className="text-[10px] uppercase tracking-wider text-blue-100 font-semibold">Hours</div>
+            <div className="bg-slate-800/80 backdrop-blur-md rounded-xl px-4 py-2 text-right border border-slate-700 shadow-lg min-w-[100px]">
+              <div className="text-3xl font-mono font-bold text-white tracking-tighter leading-none">{totalHours.toFixed(1)}</div>
+              <div className="text-[9px] uppercase tracking-widest text-slate-400 mt-1 font-semibold">Total Hours</div>
             </div>
           </div>
         </div>
 
-        {/* Search Bar */}
-        <div className="relative">
-          <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
+        {/* Search Bar - Integrated */}
+        <div className="relative group">
+          <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-400 h-5 w-5 group-focus-within:text-blue-400 transition-colors" />
           <Input
             type="text"
-            placeholder="Search flights, routes, aircraft..."
+            placeholder="Search logs..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-12 pr-4 py-6 rounded-2xl border-0 shadow-md bg-white text-base"
+            className="pl-12 pr-4 h-12 rounded-xl border-0 bg-slate-800/50 text-white placeholder:text-slate-500 focus:bg-slate-800 focus:ring-2 focus:ring-blue-500 transition-all font-medium"
             aria-label="Search flights"
           />
         </div>
       </div>
 
-      {/* Flight List */}
-      <div className="flex-1 overflow-y-auto px-4 py-4 space-y-3 pb-32">
+      {/* Flight List - Ticket Style */}
+      <div className="flex-1 overflow-y-auto px-4 py-6 space-y-4 pb-32 bg-slate-50">
         {filteredFlights.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-16 text-center px-6">
-            <div className="bg-gradient-to-br from-blue-100 to-blue-50 rounded-full p-8 mb-6 shadow-md">
-              <Plane className="h-16 w-16 text-blue-600" />
-            </div>
-            <h3 className="text-xl mb-3 text-gray-800">
-              {searchQuery ? 'No flights found' : 'No flights logged yet'}
-            </h3>
-            <p className="text-gray-600 mb-8 px-4 leading-relaxed">
-              {searchQuery
-                ? 'Try adjusting your search criteria'
-                : 'Start building your logbook by adding your first flight'}
-            </p>
+          <div className="flex flex-col items-center justify-center py-20 text-center px-6 opacity-60">
+            <Plane className="h-16 w-16 text-slate-300 mb-4" />
+            <h3 className="text-lg font-bold text-slate-400">NO FLIGHTS FOUND</h3>
           </div>
         ) : (
           filteredFlights.map((flight) => (
             <motion.div
               key={flight.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3 }}
+              initial={{ opacity: 0, scale: 0.98 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.2 }}
             >
               <Card
-                className="cursor-pointer hover:shadow-lg transition-all duration-200 border-l-4 border-l-blue-600 active:scale-98"
+                className="cursor-pointer group hover:shadow-xl transition-all duration-300 border-0 shadow-sm bg-white overflow-hidden relative"
                 onClick={() => onFlightClick(flight)}
                 role="button"
                 tabIndex={0}
-                aria-label={`Flight from ${flight.departure} to ${flight.arrival}`}
               >
-                <CardContent className="p-0">
-                  <div className="flex flex-col">
-                    {/* Upper Part: Route & Time */}
-                    <div className="p-5 flex justify-between items-center border-b border-gray-100">
-                      <div className="flex flex-col items-start min-w-0 flex-1 mr-4">
-                        <div className="flex items-center gap-2 text-gray-500 text-xs uppercase tracking-wider font-semibold mb-1">
-                          <CalendarIcon className="h-3 w-3" />
-                          <span>{formatDate(flight.date)}</span>
-                        </div>
-                        <div className="flex items-center gap-3 w-full">
-                          <span className="text-xl font-bold text-gray-900 truncate max-w-[40%] text-right">{flight.departure}</span>
-                          <Plane className="h-4 w-4 text-blue-400 rotate-90 flex-shrink-0" />
-                          <span className="text-xl font-bold text-gray-900 truncate max-w-[40%]">{flight.arrival}</span>
-                        </div>
-                      </div>
+                {/* Decorative Side Bar */}
+                <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-blue-600 group-hover:bg-blue-500 transition-colors"></div>
 
-                      <div className="flex flex-col items-end pl-4 border-l border-gray-100">
-                        <span className="text-2xl font-black text-blue-600 tracking-tight leading-none">
-                          {formatTime(flight.flightTime).split(' ')[0]}
-                        </span>
-                        <span className="text-xs text-gray-400 font-medium lowercase">
-                          {formatTime(flight.flightTime).split(' ')[1]}
-                        </span>
+                <div className="flex flex-col relative w-full">
+                  {/* Ticket Header: Date & Aircraft */}
+                  <div className="flex justify-between items-center px-5 py-3 bg-slate-50 border-b border-dashed border-slate-200">
+                    <div className="flex items-center gap-2">
+                      <div className="h-2 w-2 rounded-full bg-slate-300 group-hover:bg-blue-400 transition-colors"></div>
+                      <span className="text-xs font-bold text-slate-500 tracking-wide uppercase font-mono">{formatDate(flight.date)}</span>
+                    </div>
+                    <Badge variant="outline" className="border-slate-200 text-slate-600 font-mono text-xs bg-white px-2 py-0.5 shadow-sm">
+                      {flight.aircraft}
+                    </Badge>
+                  </div>
+
+                  {/* Ticket Body: Route */}
+                  <div className="px-5 py-5 flex justify-between items-center">
+                    <div className="text-left">
+                      <span className="block text-4xl font-black text-slate-800 tracking-tighter">{flight.departure}</span>
+                      <span className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Depart</span>
+                    </div>
+
+                    <div className="flex-1 px-6 flex flex-col items-center justify-center">
+                      <Plane className="h-5 w-5 text-blue-500 rotate-90 mb-1" />
+                      <div className="w-full h-px bg-slate-200 relative">
+                        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-1.5 h-1.5 bg-blue-500 rounded-full"></div>
                       </div>
                     </div>
 
-                    {/* Lower Part: Details */}
-                    <div className="px-5 py-3 bg-gray-50/50 flex items-center justify-between">
-                      <div className="flex items-center gap-2">
-                        <Badge variant="outline" className="border-blue-200 text-blue-700 bg-blue-50">
-                          {flight.aircraft}
-                        </Badge>
-                      </div>
-                      <div className="flex items-center text-gray-400">
-                        <Clock className="h-3 w-3 mr-1" />
-                        <span className="text-xs font-medium">Total Time</span>
-                      </div>
+                    <div className="text-right">
+                      <span className="block text-4xl font-black text-slate-800 tracking-tighter">{flight.arrival}</span>
+                      <span className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Arrive</span>
                     </div>
                   </div>
-                </CardContent>
+
+                  {/* Ticket Footer: Time */}
+                  <div className="bg-slate-900 px-5 py-3 flex justify-between items-center">
+                    <div className="flex items-center gap-2 text-slate-400">
+                      <Clock className="h-3 w-3" />
+                      <span className="text-[10px] uppercase tracking-wider font-bold">Total Duration</span>
+                    </div>
+                    <div className="text-blue-400 font-mono font-bold text-lg tracking-tight">
+                      {formatTime(flight.flightTime)}
+                    </div>
+                  </div>
+                </div>
               </Card>
             </motion.div>
           ))
