@@ -163,15 +163,24 @@ export default function App() {
     setCurrentScreen(tab as Screen);
   };
 
+  const [currentTheme, setCurrentTheme] = useState<'dark' | 'light'>(() => {
+    return (localStorage.getItem('app_theme') as 'dark' | 'light') || 'dark';
+  });
+
+  const handleThemeChange = (theme: 'dark' | 'light') => {
+    setCurrentTheme(theme);
+    localStorage.setItem('app_theme', theme);
+  };
+
   const handleOpenSettings = () => {
     setDirection(1);
     setCurrentScreen('settings');
   };
 
   return (
-    <div className="h-[100dvh] w-full max-w-[480px] mx-auto bg-slate-950 overflow-hidden flex flex-col relative shadow-2xl safe-area-top safe-area-bottom">
+    <div className={`h-[100dvh] w-full max-w-[480px] mx-auto overflow-hidden flex flex-col relative shadow-2xl safe-area-top safe-area-bottom transition-colors duration-500 ${currentTheme === 'dark' ? 'bg-slate-950 dark' : 'bg-slate-50'}`}>
       {/* Main Content Area with Transitions */}
-      <div className="flex-1 overflow-hidden relative bg-slate-900">
+      <div className={`flex-1 overflow-hidden relative transition-colors duration-500 ${currentTheme === 'dark' ? 'bg-slate-900' : 'bg-white'}`}>
         <AnimatePresence initial={false} custom={direction} mode='popLayout'>
           <motion.div
             key={currentScreen}
@@ -247,6 +256,8 @@ export default function App() {
 
             {currentScreen === 'settings' && (
               <SettingsScreen
+                currentTheme={currentTheme}
+                onThemeChange={handleThemeChange}
                 onBack={() => {
                   setDirection(-1);
                   setCurrentScreen('profile');

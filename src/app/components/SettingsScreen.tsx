@@ -8,9 +8,11 @@ import { FlightEntry } from './LogbookDashboard';
 interface SettingsScreenProps {
     onBack: () => void;
     onClearData: () => void;
+    currentTheme: 'dark' | 'light';
+    onThemeChange: (theme: 'dark' | 'light') => void;
 }
 
-export function SettingsScreen({ onBack, onClearData }: SettingsScreenProps) {
+export function SettingsScreen({ onBack, onClearData, currentTheme, onThemeChange }: SettingsScreenProps) {
     const handleRefresh = () => {
         // Force reset all service workers and caches
         if ('serviceWorker' in navigator) {
@@ -32,25 +34,25 @@ export function SettingsScreen({ onBack, onClearData }: SettingsScreenProps) {
     };
 
     return (
-        <div className="flex flex-col h-full bg-slate-900 pb-20 relative overflow-hidden">
+        <div className={`flex flex-col h-full pb-20 relative overflow-hidden transition-colors duration-500 ${currentTheme === 'dark' ? 'bg-slate-900' : 'bg-slate-50'}`}>
             {/* Background Decor */}
-            <div className="absolute top-0 left-0 right-0 h-64 bg-gradient-to-b from-blue-900/20 to-transparent pointer-events-none" />
+            <div className={`absolute top-0 left-0 right-0 h-64 bg-gradient-to-b pointer-events-none ${currentTheme === 'dark' ? 'from-blue-900/20' : 'from-blue-500/10'} to-transparent`} />
 
             {/* Header */}
-            <div className="bg-slate-900 border-b border-slate-800 px-6 pt-12 pb-6 shadow-2xl z-20 sticky top-0">
+            <div className={`border-b px-6 pt-12 pb-6 shadow-2xl z-20 sticky top-0 transition-colors duration-500 ${currentTheme === 'dark' ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
                 <div className="flex items-center gap-4">
                     <Button
                         variant="ghost"
                         size="icon"
                         onClick={onBack}
-                        className="h-10 w-10 rounded-full hover:bg-slate-800 text-white active:scale-95"
+                        className={`h-10 w-10 rounded-full active:scale-95 ${currentTheme === 'dark' ? 'hover:bg-slate-800 text-white' : 'hover:bg-slate-100 text-slate-800'}`}
                         aria-label="Go back"
                     >
                         <ArrowLeft className="h-6 w-6" />
                     </Button>
                     <div>
-                        <div className="text-[10px] text-blue-400 font-bold tracking-[0.2em] uppercase mb-1">Configuration</div>
-                        <h1 className="text-2xl font-black tracking-tight text-white">SETTINGS</h1>
+                        <div className="text-[10px] text-blue-500 font-bold tracking-[0.2em] uppercase mb-1">Configuration</div>
+                        <h1 className={`text-2xl font-black tracking-tight ${currentTheme === 'dark' ? 'text-white' : 'text-slate-900'}`}>SETTINGS</h1>
                     </div>
                 </div>
             </div>
@@ -61,28 +63,35 @@ export function SettingsScreen({ onBack, onClearData }: SettingsScreenProps) {
                 {/* Appearance */}
                 <section>
                     <h3 className="text-xs font-bold text-slate-500 uppercase tracking-widest px-1 mb-3">Appearance</h3>
-                    <Card className="bg-slate-800/50 backdrop-blur-md border border-slate-700 shadow-xl overflow-hidden">
+                    <Card className={`backdrop-blur-md border shadow-xl overflow-hidden ${currentTheme === 'dark' ? 'bg-slate-800/50 border-slate-700' : 'bg-white border-slate-200'}`}>
                         <CardContent className="p-0">
-                            <div className="flex items-center justify-between p-4 border-b border-slate-700/50 hover:bg-slate-700/30 transition-colors cursor-pointer group">
-                                <div className="flex items-center gap-3">
-                                    <div className="bg-slate-900 p-2 rounded-lg text-blue-400 group-hover:text-blue-300 transition-colors">
-                                        <Moon className="h-5 w-5" />
-                                    </div>
-                                    <span className="text-white font-medium">Dark Mode</span>
-                                </div>
-                                <div className="text-xs text-blue-400 font-mono tracking-wider uppercase bg-blue-500/10 px-2 py-1 rounded border border-blue-500/20">Active</div>
-                            </div>
                             <div
-                                onClick={() => toast.info('Light Mode unavailable in Cockpit config')}
-                                className="flex items-center justify-between p-4 hover:bg-slate-700/30 transition-colors cursor-pointer opacity-70 group"
+                                onClick={() => onThemeChange('dark')}
+                                className={`flex items-center justify-between p-4 border-b transition-colors cursor-pointer group ${currentTheme === 'dark' ? 'bg-blue-500/10 border-blue-500/20' : 'hover:bg-slate-50 border-slate-100'}`}
                             >
                                 <div className="flex items-center gap-3">
-                                    <div className="bg-slate-900 p-2 rounded-lg text-slate-400 group-hover:text-slate-200 transition-colors">
+                                    <div className={`p-2 rounded-lg transition-colors ${currentTheme === 'dark' ? 'bg-slate-900 text-blue-400' : 'bg-slate-100 text-slate-400 group-hover:text-slate-600'}`}>
+                                        <Moon className="h-5 w-5" />
+                                    </div>
+                                    <span className={`font-medium ${currentTheme === 'dark' ? 'text-blue-400' : 'text-slate-600'}`}>Dark Mode</span>
+                                </div>
+                                {currentTheme === 'dark' && (
+                                    <div className="text-xs text-blue-400 font-mono tracking-wider uppercase bg-blue-500/10 px-2 py-1 rounded border border-blue-500/20">Active</div>
+                                )}
+                            </div>
+                            <div
+                                onClick={() => onThemeChange('light')}
+                                className={`flex items-center justify-between p-4 transition-colors cursor-pointer group ${currentTheme === 'light' ? 'bg-blue-50 border-blue-200' : 'hover:bg-slate-700/30'}`}
+                            >
+                                <div className="flex items-center gap-3">
+                                    <div className={`p-2 rounded-lg transition-colors ${currentTheme === 'light' ? 'bg-white text-blue-500 shadow-sm' : 'bg-slate-900 text-slate-400'}`}>
                                         <Sun className="h-5 w-5" />
                                     </div>
-                                    <span className="text-slate-400 font-medium group-hover:text-slate-300">Light Mode</span>
+                                    <span className={`font-medium ${currentTheme === 'light' ? 'text-blue-600' : 'text-slate-400'}`}>Light Mode</span>
                                 </div>
-                                <div className="text-xs text-slate-500 font-mono tracking-wider uppercase border border-slate-700 px-2 py-1 rounded">Locked</div>
+                                {currentTheme === 'light' && (
+                                    <div className="text-xs text-blue-600 font-mono tracking-wider uppercase bg-blue-100 px-2 py-1 rounded border border-blue-200">Active</div>
+                                )}
                             </div>
                         </CardContent>
                     </Card>

@@ -80,7 +80,7 @@ export function LogbookDashboard({ flights, onFlightClick, onAddFlight, totalHou
   };
 
   return (
-    <div className="flex flex-col h-full bg-slate-950 relative">
+    <div className="flex flex-col h-full bg-slate-50 dark:bg-slate-950 relative transition-colors duration-500">
       {/* Update Available Banner */}
       {isRefreshing && (
         <div className="bg-blue-600 text-white px-4 py-3 text-sm font-medium flex justify-between items-center animate-in slide-in-from-top-2 absolute top-0 left-0 right-0 z-50">
@@ -92,19 +92,19 @@ export function LogbookDashboard({ flights, onFlightClick, onAddFlight, totalHou
       )}
 
       {/* Header with Cockpit Design */}
-      <div className="bg-slate-900 border-b border-slate-800 px-6 pt-14 pb-6 shadow-2xl z-20 sticky top-0">
+      <div className="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 px-6 pt-14 pb-6 shadow-2xl z-20 sticky top-0 transition-colors duration-500">
         <div className="flex items-center justify-between mb-6">
           <div>
-            <div className="text-[10px] text-blue-500 font-bold tracking-[0.2em] uppercase mb-1 drop-shadow-lg">Flight Deck</div>
-            <h1 className="text-3xl font-black tracking-tight text-white drop-shadow-md">LOGBOOK</h1>
+            <div className="text-[10px] text-blue-500 font-bold tracking-[0.2em] uppercase mb-1 drop-shadow-sm">Flight Deck</div>
+            <h1 className="text-3xl font-black tracking-tight text-slate-900 dark:text-white drop-shadow-sm transition-colors duration-500">LOGBOOK</h1>
           </div>
 
           <div className="flex items-center gap-3">
             {/* Total Hours Badge */}
-            <div className="bg-slate-800/80 backdrop-blur-md rounded-xl px-4 py-2 text-right border border-slate-700/50 shadow-lg min-w-[90px] relative overflow-hidden group">
+            <div className="bg-slate-100 dark:bg-slate-800/80 backdrop-blur-md rounded-xl px-4 py-2 text-right border border-slate-200 dark:border-slate-700/50 shadow-lg min-w-[90px] relative overflow-hidden group transition-colors duration-500">
               <div className="absolute inset-0 bg-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-              <div className="text-2xl font-mono font-bold text-white tracking-tighter leading-none">{totalHours.toFixed(1)}</div>
-              <div className="text-[8px] uppercase tracking-widest text-slate-400 mt-1 font-bold">Hours</div>
+              <div className="text-2xl font-mono font-bold text-slate-900 dark:text-white tracking-tighter leading-none transition-colors duration-500">{totalHours.toFixed(1)}</div>
+              <div className="text-[8px] uppercase tracking-widest text-slate-500 dark:text-slate-400 mt-1 font-bold">Hours</div>
             </div>
           </div>
         </div>
@@ -112,13 +112,13 @@ export function LogbookDashboard({ flights, onFlightClick, onAddFlight, totalHou
         {/* Search Bar & Filter */}
         <div className="flex gap-3 relative" ref={filterRef}>
           <div className="relative flex-1 group">
-            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-500 h-5 w-5 group-focus-within:text-blue-400 transition-colors" />
+            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-400 dark:text-slate-500 h-5 w-5 group-focus-within:text-blue-500 dark:group-focus-within:text-blue-400 transition-colors" />
             <Input
               type="text"
               placeholder="Search logs..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-12 pr-4 h-12 rounded-xl border-slate-700 bg-slate-800 text-white placeholder:text-slate-500 focus:bg-slate-800 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all font-medium"
+              className="pl-12 pr-4 h-12 rounded-xl border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white placeholder:text-slate-500 focus:bg-white dark:focus:bg-slate-800 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all font-medium"
             />
           </div>
 
@@ -126,7 +126,7 @@ export function LogbookDashboard({ flights, onFlightClick, onAddFlight, totalHou
             variant="outline"
             size="icon"
             onClick={() => setShowFilter(!showFilter)}
-            className={`h-12 w-12 rounded-xl border-slate-700 bg-slate-800 hover:bg-slate-700 hover:text-white transition-all ${showFilter || startDate || endDate ? 'border-blue-500 text-blue-400' : 'text-slate-400'}`}
+            className={`h-12 w-12 rounded-xl border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-800 hover:bg-white dark:hover:bg-slate-700 hover:text-blue-500 dark:hover:text-white transition-all ${showFilter || startDate || endDate ? 'border-blue-500 text-blue-500 dark:text-blue-400' : 'text-slate-400'}`}
           >
             <Filter className="h-5 w-5" />
           </Button>
@@ -139,22 +139,22 @@ export function LogbookDashboard({ flights, onFlightClick, onAddFlight, totalHou
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 10, scale: 0.95 }}
                 transition={{ duration: 0.2 }}
-                className="absolute top-14 right-0 w-72 bg-slate-800 border border-slate-700 rounded-xl shadow-2xl p-4 z-50"
+                className="absolute top-14 right-0 w-72 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-2xl p-4 z-50"
               >
                 <div className="flex justify-between items-center mb-4">
-                  <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">Filter Date Range</span>
+                  <span className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest">Filter Date Range</span>
                   {(startDate || endDate) && (
-                    <button onClick={() => { setStartDate(''); setEndDate(''); }} className="text-[10px] text-red-400 hover:text-red-300 font-bold uppercase">Clear</button>
+                    <button onClick={() => { setStartDate(''); setEndDate(''); }} className="text-[10px] text-red-500 dark:text-red-400 hover:text-red-600 dark:hover:text-red-300 font-bold uppercase">Clear</button>
                   )}
                 </div>
                 <div className="space-y-3">
                   <div>
                     <label className="text-[10px] text-slate-500 uppercase font-bold mb-1 block">Start Date</label>
-                    <Input type="date" value={startDate} onChange={(e) => setStartDate(e.target.value)} className="bg-slate-900 border-slate-600 text-white h-9 text-xs" />
+                    <Input type="date" value={startDate} onChange={(e) => setStartDate(e.target.value)} className="bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white h-9 text-xs" />
                   </div>
                   <div>
                     <label className="text-[10px] text-slate-500 uppercase font-bold mb-1 block">End Date</label>
-                    <Input type="date" value={endDate} onChange={(e) => setEndDate(e.target.value)} className="bg-slate-900 border-slate-600 text-white h-9 text-xs" />
+                    <Input type="date" value={endDate} onChange={(e) => setEndDate(e.target.value)} className="bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white h-9 text-xs" />
                   </div>
                 </div>
               </motion.div>
@@ -164,11 +164,11 @@ export function LogbookDashboard({ flights, onFlightClick, onAddFlight, totalHou
       </div>
 
       {/* Flight List */}
-      <div className="flex-1 overflow-y-auto px-4 py-6 space-y-4 pb-32 bg-slate-950/50">
+      <div className="flex-1 overflow-y-auto px-4 py-6 space-y-4 pb-32 bg-slate-50 dark:bg-slate-950/50 transition-colors duration-500">
         {filteredFlights.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-20 text-center px-6 opacity-60">
-            <Plane className="h-16 w-16 text-slate-700 mb-4" />
-            <h3 className="text-lg font-bold text-slate-500">NO FLIGHTS RECORDED</h3>
+            <Plane className="h-16 w-16 text-slate-300 dark:text-slate-700 mb-4 transition-colors" />
+            <h3 className="text-lg font-bold text-slate-400 dark:text-slate-500 transition-colors">NO FLIGHTS RECORDED</h3>
           </div>
         ) : (
           filteredFlights.map((flight) => (
@@ -179,16 +179,16 @@ export function LogbookDashboard({ flights, onFlightClick, onAddFlight, totalHou
               transition={{ duration: 0.3 }}
             >
               <Card
-                className="cursor-pointer group hover:border-blue-500/50 transition-all duration-300 border border-slate-800 bg-slate-900/50 backdrop-blur-sm overflow-hidden relative shadow-lg"
+                className="cursor-pointer group hover:border-blue-400 dark:hover:border-blue-500/50 transition-all duration-300 border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/50 backdrop-blur-sm overflow-hidden relative shadow-sm dark:shadow-lg hover:shadow-md dark:hover:shadow-blue-900/10"
                 onClick={() => onFlightClick(flight)}
               >
                 {/* Top Bar: Date & ID */}
-                <div className="flex justify-between items-center px-5 py-3 border-b border-slate-800/50 bg-slate-900/30">
+                <div className="flex justify-between items-center px-5 py-3 border-b border-slate-100 dark:border-slate-800/50 bg-slate-50 dark:bg-slate-900/30 transition-colors">
                   <div className="flex items-center gap-2">
                     <CalendarIcon className="h-3 w-3 text-blue-500" />
-                    <span className="text-[10px] font-bold text-slate-400 tracking-widest uppercase">{formatDate(flight.date)}</span>
+                    <span className="text-[10px] font-bold text-slate-500 dark:text-slate-400 tracking-widest uppercase">{formatDate(flight.date)}</span>
                   </div>
-                  <Badge variant="outline" className="border-slate-700 text-slate-400 text-[10px] font-mono bg-slate-800/50 px-2 py-0.5">
+                  <Badge variant="outline" className="border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 text-[10px] font-mono bg-white dark:bg-slate-800/50 px-2 py-0.5">
                     {flight.aircraft}
                   </Badge>
                 </div>
@@ -198,34 +198,34 @@ export function LogbookDashboard({ flights, onFlightClick, onAddFlight, totalHou
                   <div className="flex items-center justify-between">
                     {/* Departure */}
                     <div className="text-left w-24">
-                      <span className="block text-3xl font-black text-white tracking-widest font-mono">{flight.departure}</span>
-                      <span className="text-[9px] uppercase font-bold text-slate-500 tracking-wider mt-1 block">Departure</span>
+                      <span className="block text-3xl font-black text-slate-900 dark:text-white tracking-widest font-mono transition-colors">{flight.departure}</span>
+                      <span className="text-[9px] uppercase font-bold text-slate-400 dark:text-slate-500 tracking-wider mt-1 block transition-colors">Departure</span>
                     </div>
 
                     {/* Center Visual */}
                     <div className="flex-1 flex flex-col items-center justify-center px-2 relative">
                       {/* Vector Line */}
-                      <div className="w-full h-px bg-slate-700 relative flex items-center justify-center">
-                        <div className="absolute left-0 w-1 h-1 bg-slate-600 rounded-full"></div>
-                        <div className="absolute right-0 w-1 h-1 bg-slate-600 rounded-full"></div>
+                      <div className="w-full h-px bg-slate-200 dark:bg-slate-700 relative flex items-center justify-center transition-colors">
+                        <div className="absolute left-0 w-1 h-1 bg-slate-300 dark:bg-slate-600 rounded-full transition-colors"></div>
+                        <div className="absolute right-0 w-1 h-1 bg-slate-300 dark:bg-slate-600 rounded-full transition-colors"></div>
 
                         {/* Plane Icon */}
-                        <div className="bg-slate-900 px-2 z-10">
+                        <div className="bg-white dark:bg-slate-900 px-2 z-10 transition-colors">
                           <Plane className="h-5 w-5 text-blue-500 rotate-90" />
                         </div>
                       </div>
 
                       {/* Flight Time Below Plane */}
                       <div className="mt-2 text-center">
-                        <span className="text-sm font-bold text-white font-mono tracking-wide block">{formatTime(flight.flightTime)}</span>
-                        <span className="text-[8px] text-slate-500 uppercase tracking-widest block">Total Time</span>
+                        <span className="text-sm font-bold text-slate-800 dark:text-white font-mono tracking-wide block transition-colors">{formatTime(flight.flightTime)}</span>
+                        <span className="text-[8px] text-slate-400 dark:text-slate-500 uppercase tracking-widest block transition-colors">Total Time</span>
                       </div>
                     </div>
 
                     {/* Arrival */}
                     <div className="text-right w-24">
-                      <span className="block text-3xl font-black text-white tracking-widest font-mono">{flight.arrival}</span>
-                      <span className="text-[9px] uppercase font-bold text-slate-500 tracking-wider mt-1 block">Arrival</span>
+                      <span className="block text-3xl font-black text-slate-900 dark:text-white tracking-widest font-mono transition-colors">{flight.arrival}</span>
+                      <span className="text-[9px] uppercase font-bold text-slate-400 dark:text-slate-500 tracking-wider mt-1 block transition-colors">Arrival</span>
                     </div>
                   </div>
                 </div>
