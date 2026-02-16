@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pilot Logbook App - Design Submission</title>
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #1e293b;
+            --background-color: #f8fafc;
+            --text-color: #334155;
+            --header-bg: #90d585;
+            /* Sage green from diagram */
+            --header-text: #1a4731;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+        }
+
+        .container {
+            display: grid;
+            grid-template-rows: 1fr 1fr;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            height: 100%;
+            border: 2px solid #000;
+        }
+
+        .section {
+            border: 1px solid #000;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            background: white;
+        }
+
+        .section-header {
+            background-color: var(--header-bg);
+            color: var(--header-text);
+            padding: 10px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+            border-bottom: 1px solid #000;
+        }
+
+        .content {
+            padding: 20px;
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        /* Top Section: Program User Interface */
+        #ui-section {
+            grid-column: 1 / -1;
+            /* Spans full width */
+            grid-row: 1 / 2;
+        }
+
+        /* Bottom Left: Program User Experience */
+        #ux-section {
+            grid-column: 1 / 2;
+            grid-row: 2 / 3;
+        }
+
+        /* Bottom Right: Types of Layout */
+        #layout-section {
+            grid-column: 2 / 3;
+            grid-row: 2 / 3;
+        }
+
+        h3 {
+            color: var(--secondary-color);
+            margin-top: 0;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 5px;
+            display: inline-block;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .feature-card {
+            background: #f1f5f9;
+            padding: 10px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                grid-template-rows: auto auto auto;
+                grid-template-columns: 1fr;
+                height: auto;
+            }
+
+            #ui-section,
+            #ux-section,
+            #layout-section {
+                grid-column: 1 / -1;
+                grid-row: auto;
+            }
+
+            body {
+                height: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <!-- TOP SECTION: PROGRAM USER INTERFACE -->
+        <div id="ui-section" class="section">
+            <div class="section-header">Program User Interface</div>
+            <div class="content">
+                <p>The Pilot Logbook App employs a <strong>Cockpit-Inspired Design System</strong>, adhering to modern
+                    UI principles for aviation tools.</p>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div>
+                        <h3>Visual Hierarchy</h3>
+                        <p>Key flight data (Airport Codes, total hours) is maximized using size and contrast, mimicking
+                            flight deck instruments for instant readability.</p>
+
+                        <h3>Color & Contrast</h3>
+                        <p>Uses a deep Slate/Blue palette for reduced eye strain (Dark Mode compatible logic) with
+                            high-contrast White/Blue accents for actionable elements.</p>
+                    </div>
+                    <div>
+                        <h3>Typography</h3>
+                        <p>Monospaced fonts (<code>JetBrains Mono</code> equivalent) are used for numerical data (Time,
+                            Coordinates) to ensure rapid scanning and alignment, critical for pilot logs.</p>
+
+                        <h3>Consistency</h3>
+                        <p>Uniform interaction patterns: All primary actions (Add Flight, Edit) are located in easily
+                            accessible zones (Thumb Zone) using consistent iconography.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- BOTTOM LEFT: PROGRAM USER EXPERIENCE -->
+        <div id="ux-section" class="section">
+            <div class="section-header">Program User Experience</div>
+            <div class="content">
+                <h3>User-Centric Workflow</h3>
+                <p>Designed for quick entry: The app prioritizes logging flights with minimal taps. Features "Add to
+                    Home Screen" friction reduction via custom improved PWA installation flow.</p>
+
+                <h3>Micro-Interactions</h3>
+                <ul>
+                    <li><strong>Tactile Feedback:</strong> Buttons scale down (0.95x) on press.</li>
+                    <li><strong>Transitions:</strong> Smooth page transitions using Framer Motion.</li>
+                    <li><strong>Loading States:</strong> Custom "Pre-Flight" animation sequence.</li>
+                </ul>
+
+                <h3>Feedback Systems</h3>
+                <p>Toast notifications confirm all critical actions (Save, Delete, Update) to keep the user informed of
+                    system status.</p>
+            </div>
+        </div>
+
+        <!-- BOTTOM RIGHT: TYPES OF LAYOUT -->
+        <div id="layout-section" class="section">
+            <div class="section-header">Types of Layout</div>
+            <div class="content">
+                <h3>Implemented Layouts</h3>
+
+                <div class="feature-card">
+                    <strong>Bottom Navigation Layout</strong>
+                    <p>Standard robust navigation for top-level destinations (Logbook, Stats, Profile). Keeps key areas
+                        instantly accessible via thumb.</p>
+                </div>
+
+                <div class="feature-card">
+                    <strong>Linear Layout (Vertical Stack)</strong>
+                    <p>Used in Forms and Feeds. Content flows logically from top to bottom (Date -> Route -> Aircraft ->
+                        Time).</p>
+                </div>
+
+                <div class="feature-card">
+                    <strong>Card Layout (Container)</strong>
+                    <p>Groups related information (Flight segments) into tangible "Boarding Pass" style containers for
+                        clearer organization.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

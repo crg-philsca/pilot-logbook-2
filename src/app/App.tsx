@@ -189,7 +189,7 @@ export default function App() {
         )}
 
         {currentScreen === 'profile' && (
-          <ProfileScreen />
+          <ProfileScreen flights={flights} />
         )}
       </div>
 

@@ -14,8 +14,8 @@ export function BottomNavigation({ activeTab, onTabChange }: BottomNavigationPro
   ];
 
   return (
-    <div className="absolute bottom-0 left-0 right-0 bg-white border-t border-gray-100 shadow-[0_-5px_15px_rgba(0,0,0,0.05)] z-50 safe-area-bottom pb-safe">
-      <nav className="grid grid-cols-3" role="navigation" aria-label="Bottom navigation">
+    <div className="absolute bottom-0 left-0 right-0 bg-slate-900 border-t border-slate-800 shadow-[0_-5px_20px_rgba(0,0,0,0.5)] z-50 safe-area-bottom pb-safe">
+      <nav className="grid grid-cols-3 h-20" role="navigation" aria-label="Bottom navigation">
         {tabs.map((tab) => {
           const Icon = tab.icon;
           const isActive = activeTab === tab.id;
@@ -24,23 +24,36 @@ export function BottomNavigation({ activeTab, onTabChange }: BottomNavigationPro
             <button
               key={tab.id}
               onClick={() => onTabChange(tab.id)}
-              className={`flex flex-col items-center justify-center py-3 px-4 transition-all duration-200 relative active:scale-95 touch-manipulation ${isActive ? 'text-blue-600' : 'text-gray-400 hover:text-gray-600'
+              className={`flex flex-col items-center justify-center py-2 px-4 transition-all duration-300 relative active:scale-95 touch-manipulation group ${isActive ? 'text-blue-400' : 'text-slate-500 hover:text-slate-300'
                 }`}
               style={{ minWidth: '4rem' }}
               aria-label={tab.label}
               aria-current={isActive ? 'page' : undefined}
             >
+              {/* Active Tab Indicator glow */}
               {isActive && (
                 <motion.div
-                  layoutId="activeTab"
-                  className="absolute -top-3 w-12 h-1 bg-blue-600 rounded-full shadow-[0_0_10px_rgba(37,99,235,0.5)]"
+                  layoutId="activeTabGlow"
+                  className="absolute inset-0 bg-blue-500/10 rounded-xl mx-2 my-1"
+                  transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+                />
+              )}
+
+              {/* Top Line Indicator */}
+              {isActive && (
+                <motion.div
+                  layoutId="activeTabLine"
+                  className="absolute top-0 w-12 h-1 bg-blue-500 rounded-full shadow-[0_0_10px_rgba(59,130,246,0.6)]"
                   transition={{ type: 'spring', stiffness: 500, damping: 30 }}
                 />
               )}
-              <Icon className={`h-6 w-6 mb-1.5 ${isActive ? 'scale-110 stroke-[2.5px]' : 'stroke-2'} transition-all`} />
-              <span className={`text-[10px] font-medium tracking-wide ${isActive ? 'opacity-100' : 'opacity-70'}`}>
-                {tab.label}
-              </span>
+
+              <div className="relative z-10 flex flex-col items-center">
+                <Icon className={`h-6 w-6 mb-1.5 ${isActive ? 'scale-110 stroke-[2.5px] drop-shadow-[0_0_8px_rgba(59,130,246,0.5)]' : 'stroke-2'} transition-all`} />
+                <span className={`text-[9px] font-bold tracking-widest uppercase ${isActive ? 'opacity-100' : 'opacity-60'}`}>
+                  {tab.label}
+                </span>
+              </div>
             </button>
           );
         })}
