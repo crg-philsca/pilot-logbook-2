@@ -1,7 +1,6 @@
 import { ArrowLeft, Calendar, MapPin, Plane, Clock, FileText, Edit, Trash2 } from 'lucide-react';
 import { Button } from './ui/button';
 import { Card, CardContent } from './ui/card';
-import { Badge } from './ui/badge';
 import { Separator } from './ui/separator';
 import { motion } from 'motion/react';
 import { FlightEntry } from './LogbookDashboard';
@@ -17,184 +16,136 @@ export function FlightDetailsScreen({ flight, onBack, onEdit, onDelete }: Flight
   const formatDate = (dateStr: string) => {
     const date = new Date(dateStr);
     return date.toLocaleDateString('en-US', {
-      weekday: 'long',
+      weekday: 'short',
       year: 'numeric',
-      month: 'long',
+      month: 'short',
       day: 'numeric'
-    });
+    }).toUpperCase();
   };
 
   const formatTime = (hours: number) => {
     const h = Math.floor(hours);
     const m = Math.round((hours - h) * 60);
-    return `${h}h ${m}m`;
+    return `${h}H ${m}M`;
   };
 
   return (
-    <div className="flex flex-col h-full bg-gradient-to-b from-blue-50 to-white relative">
+    <div className="flex flex-col h-full bg-slate-900 pb-20 relative overflow-hidden">
+      {/* Background Decor */}
+      <div className="absolute top-0 left-0 right-0 h-64 bg-gradient-to-b from-blue-900/20 to-transparent pointer-events-none" />
+
       {/* Header */}
-      <div className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-6 shadow-lg">
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-4">
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={onBack}
-              className="h-10 w-10 rounded-full hover:bg-white/20 text-white active:scale-95"
-              aria-label="Go back"
-            >
-              <ArrowLeft className="h-6 w-6" />
-            </Button>
-            <div>
-              <h1 className="text-2xl">Flight Details</h1>
-              <p className="text-blue-100 text-sm">View flight information</p>
-            </div>
-          </div>
-        </div>
-
-        {/* Route Display */}
-        <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-5 mt-4">
-          <div className="flex items-center justify-center gap-4">
-            <div className="text-center flex-1">
-              <div className="text-3xl mb-1">{flight.departure}</div>
-              <div className="text-xs text-blue-100">Departure</div>
-            </div>
-            <div className="bg-white/20 rounded-full p-3">
-              <Plane className="h-6 w-6 transform rotate-90" />
-            </div>
-            <div className="text-center flex-1">
-              <div className="text-3xl mb-1">{flight.arrival}</div>
-              <div className="text-xs text-blue-100">Arrival</div>
-            </div>
+      <div className="bg-slate-900 border-b border-slate-800 px-6 pt-12 pb-6 shadow-2xl z-20 sticky top-0">
+        <div className="flex items-center gap-4">
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={onBack}
+            className="h-10 w-10 rounded-full hover:bg-slate-800 text-white active:scale-95"
+            aria-label="Go back"
+          >
+            <ArrowLeft className="h-6 w-6" />
+          </Button>
+          <div>
+            <div className="text-[10px] text-blue-400 font-bold tracking-[0.2em] uppercase mb-1">Flight Record</div>
+            <h1 className="text-2xl font-black tracking-tight text-white mb-0">LOG #{flight.id}</h1>
           </div>
         </div>
       </div>
 
-      {/* Content - Scrollable */}
-      <div className="flex-1 overflow-y-auto px-6 py-6">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3 }}
-          className="space-y-4"
+      {/* Content */}
+      <div className="flex-1 overflow-y-auto px-6 py-6 pb-32 z-10 space-y-6">
+
+        {/* Main Flight Ticket */}
+        <Card className="bg-slate-800/50 backdrop-blur-md border border-slate-700 shadow-xl overflow-hidden relative">
+          {/* Ticket Cutout Effect */}
+          <div className="absolute top-1/2 left-0 w-4 h-8 bg-slate-900 rounded-r-full -mt-4 border-r border-slate-700"></div>
+          <div className="absolute top-1/2 right-0 w-4 h-8 bg-slate-900 rounded-l-full -mt-4 border-l border-slate-700"></div>
+
+          <CardContent className="p-0">
+            {/* Upper Section: Route */}
+            <div className="p-6 border-b border-dashed border-slate-700">
+              <div className="flex items-center justify-between gap-4">
+                <div className="text-center flex-1">
+                  <div className="text-4xl font-black text-white tracking-widest">{flight.departure}</div>
+                  <div className="text-[10px] text-slate-500 uppercase tracking-widest mt-1">Departure</div>
+                </div>
+
+                <div className="flex flex-col items-center">
+                  <Plane className="h-6 w-6 text-blue-500 rotate-90 transform mb-2" />
+                  <div className="h-px w-16 bg-gradient-to-r from-transparent via-blue-500 to-transparent opacity-50"></div>
+                </div>
+
+                <div className="text-center flex-1">
+                  <div className="text-4xl font-black text-white tracking-widest">{flight.arrival}</div>
+                  <div className="text-[10px] text-slate-500 uppercase tracking-widest mt-1">Arrival</div>
+                </div>
+              </div>
+            </div>
+
+            {/* Lower Section: Details */}
+            <div className="p-6 grid grid-cols-2 gap-6 bg-slate-900/30">
+              <div>
+                <div className="flex items-center gap-2 text-blue-400 mb-1">
+                  <Calendar className="h-3 w-3" />
+                  <span className="text-[10px] uppercase tracking-widest font-bold">Date</span>
+                </div>
+                <div className="text-lg font-mono text-white">{formatDate(flight.date)}</div>
+              </div>
+              <div className="text-right">
+                <div className="flex items-center gap-2 text-orange-400 mb-1 justify-end">
+                  <Clock className="h-3 w-3" />
+                  <span className="text-[10px] uppercase tracking-widest font-bold">Duration</span>
+                </div>
+                <div className="text-lg font-mono text-white">{formatTime(flight.flightTime)}</div>
+              </div>
+              <div>
+                <div className="flex items-center gap-2 text-purple-400 mb-1">
+                  <Plane className="h-3 w-3" />
+                  <span className="text-[10px] uppercase tracking-widest font-bold">Aircraft</span>
+                </div>
+                <div className="text-lg font-mono text-white">{flight.aircraft}</div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Notes Section */}
+        {flight.notes && (
+          <Card className="bg-slate-800/50 backdrop-blur-md border border-slate-700 shadow-xl overflow-hidden">
+            <CardContent className="p-5">
+              <div className="flex items-center gap-2 mb-3">
+                <FileText className="h-4 w-4 text-slate-400" />
+                <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">Remarks</span>
+              </div>
+              <div className="text-slate-300 text-sm leading-relaxed font-mono bg-slate-900/50 p-4 rounded-lg border border-slate-700/50">
+                {flight.notes}
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
+      </div>
+
+      {/* Fixed Action Buttons */}
+      <div className="absolute bottom-0 left-0 right-0 bg-slate-900/90 backdrop-blur-xl border-t border-slate-800 px-6 py-4 shadow-2xl z-20 pb-safe safe-area-bottom flex gap-3">
+        <Button
+          onClick={onDelete}
+          variant="destructive"
+          className="flex-1 h-12 bg-red-500/10 text-red-500 hover:bg-red-500/20 border-red-500/20 border shadow-none"
         >
-          {/* Date and Time Card */}
-          <Card className="border-l-4 border-l-blue-600">
-            <CardContent className="p-5">
-              <div className="space-y-4">
-                <div className="flex items-start gap-4">
-                  <div className="bg-blue-100 rounded-full p-3 mt-1">
-                    <Calendar className="h-5 w-5 text-blue-600" />
-                  </div>
-                  <div className="flex-1">
-                    <div className="text-sm text-gray-600 mb-1">Flight Date</div>
-                    <div className="text-base">{formatDate(flight.date)}</div>
-                  </div>
-                </div>
-
-                <Separator />
-
-                <div className="flex items-start gap-4">
-                  <div className="bg-blue-100 rounded-full p-3 mt-1">
-                    <Clock className="h-5 w-5 text-blue-600" />
-                  </div>
-                  <div className="flex-1">
-                    <div className="text-sm text-gray-600 mb-1">Flight Duration</div>
-                    <div className="text-base">{formatTime(flight.flightTime)}</div>
-                    <div className="text-xs text-gray-500 mt-1">{flight.flightTime.toFixed(2)} decimal hours</div>
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Route Details Card */}
-          <Card className="border-l-4 border-l-blue-600">
-            <CardContent className="p-5">
-              <div className="flex items-start gap-4">
-                <div className="bg-blue-100 rounded-full p-3 mt-1">
-                  <MapPin className="h-5 w-5 text-blue-600" />
-                </div>
-                <div className="flex-1">
-                  <div className="text-sm text-gray-600 mb-2">Route</div>
-                  <div className="flex items-center gap-3">
-                    <Badge variant="outline" className="text-base px-4 py-2 border-blue-600 text-blue-700">
-                      {flight.departure}
-                    </Badge>
-                    <span className="text-gray-400">→</span>
-                    <Badge variant="outline" className="text-base px-4 py-2 border-blue-600 text-blue-700">
-                      {flight.arrival}
-                    </Badge>
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Aircraft Card */}
-          <Card className="border-l-4 border-l-blue-600">
-            <CardContent className="p-5">
-              <div className="flex items-start gap-4">
-                <div className="bg-blue-100 rounded-full p-3 mt-1">
-                  <Plane className="h-5 w-5 text-blue-600" />
-                </div>
-                <div className="flex-1">
-                  <div className="text-sm text-gray-600 mb-2">Aircraft Type</div>
-                  <Badge className="bg-blue-600 hover:bg-blue-700 text-base px-4 py-2">
-                    {flight.aircraft}
-                  </Badge>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Notes Card - Only show if notes exist */}
-          {flight.notes && (
-            <Card className="border-l-4 border-l-gray-400">
-              <CardContent className="p-5">
-                <div className="flex items-start gap-4">
-                  <div className="bg-gray-100 rounded-full p-3 mt-1">
-                    <FileText className="h-5 w-5 text-gray-600" />
-                  </div>
-                  <div className="flex-1">
-                    <div className="text-sm text-gray-600 mb-2">Flight Notes</div>
-                    <div className="text-base leading-relaxed text-gray-700">
-                      {flight.notes}
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          )}
-
-          {/* Spacer for bottom buttons */}
-          <div className="h-24"></div>
-        </motion.div>
+          <Trash2 className="h-4 w-4 mr-2" />
+          DELETE
+        </Button>
+        <Button
+          onClick={onEdit}
+          className="flex-[2] h-12 bg-blue-600 hover:bg-blue-500 text-white font-bold tracking-wide shadow-lg shadow-blue-900/20"
+        >
+          <Edit className="h-4 w-4 mr-2" />
+          EDIT RECORD
+        </Button>
       </div>
 
-      {/* Fixed Action Buttons at Bottom */}
-      <div className="absolute bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-6 py-4 shadow-lg z-20 pb-safe safe-area-bottom">
-        <div className="grid grid-cols-2 gap-3">
-          <Button
-            onClick={onEdit}
-            variant="outline"
-            className="h-14 text-base border-blue-600 text-blue-600 hover:bg-blue-50 active:scale-98 transition-transform rounded-2xl"
-            size="lg"
-          >
-            <Edit className="h-5 w-5 mr-2" />
-            Edit
-          </Button>
-          <Button
-            onClick={onDelete}
-            variant="destructive"
-            className="h-14 text-base active:scale-98 transition-transform rounded-2xl"
-            size="lg"
-          >
-            <Trash2 className="h-5 w-5 mr-2" />
-            Delete
-          </Button>
-        </div>
-      </div>
     </div>
   );
 }

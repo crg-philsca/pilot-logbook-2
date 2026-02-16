@@ -11,9 +11,10 @@ import autoTable from 'jspdf-autotable';
 
 interface ProfileScreenProps {
   flights: FlightEntry[];
+  onOpenSettings: () => void;
 }
 
-export function ProfileScreen({ flights }: ProfileScreenProps) {
+export function ProfileScreen({ flights, onOpenSettings }: ProfileScreenProps) {
   const [name, setName] = useState(() => localStorage.getItem('pilot_name') || 'Captain Pilot');
   const [license, setLicense] = useState(() => localStorage.getItem('pilot_license') || 'ATP-123456');
   const [rank, setRank] = useState(() => localStorage.getItem('pilot_rank') || 'Captain');
@@ -162,10 +163,10 @@ export function ProfileScreen({ flights }: ProfileScreenProps) {
           <Button
             variant="outline"
             className="w-full h-14 text-base bg-slate-800/50 border-slate-700 text-slate-300 hover:bg-slate-700/50 active:scale-98 transition-all rounded-xl justify-start px-6 gap-3"
-            onClick={() => toast.info('Data Sync is coming in v4.0')}
+            onClick={onOpenSettings}
           >
             <Settings className="h-5 w-5" />
-            Sync Settings
+            System Settings
           </Button>
         </div>
 

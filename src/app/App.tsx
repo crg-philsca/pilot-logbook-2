@@ -4,15 +4,20 @@ import { AddFlightScreen } from './components/AddFlightScreen';
 import { FlightDetailsScreen } from './components/FlightDetailsScreen';
 import { StatisticsScreen } from './components/StatisticsScreen';
 import { ProfileScreen } from './components/ProfileScreen';
+import { SettingsScreen } from './components/SettingsScreen';
 import { BottomNavigation } from './components/BottomNavigation';
 import { Toaster } from './components/ui/sonner';
 import { toast } from 'sonner';
+import { AnimatePresence, motion } from 'framer-motion';
 
-type Screen = 'logbook' | 'add' | 'details' | 'stats' | 'profile';
+type Screen = 'logbook' | 'add' | 'details' | 'stats' | 'profile' | 'settings';
 
 export default function App() {
   const [currentScreen, setCurrentScreen] = useState<Screen>('logbook');
   const [activeTab, setActiveTab] = useState('logbook');
+
+  // Track direction for slide animation
+  const [direction, setDirection] = useState(0);
 
   // Initialize flights from localStorage if available
   const [flights, setFlights] = useState<FlightEntry[]>(() => {
@@ -94,11 +99,13 @@ export default function App() {
 
   const handleAddFlight = () => {
     setEditingFlight(undefined);
+    setDirection(1);
     setCurrentScreen('add');
   };
 
   const handleFlightClick = (flight: FlightEntry) => {
     setSelectedFlight(flight);
+    setDirection(1);
     setCurrentScreen('details');
   };
 
@@ -118,6 +125,7 @@ export default function App() {
       };
       setFlights([newFlight, ...flights]);
     }
+    setDirection(-1);
     setCurrentScreen('logbook');
     setEditingFlight(undefined);
   };
@@ -125,6 +133,7 @@ export default function App() {
   const handleEditFlight = () => {
     if (selectedFlight) {
       setEditingFlight(selectedFlight);
+      setDirection(1);
       setCurrentScreen('add');
     }
   };
@@ -132,7 +141,8 @@ export default function App() {
   const handleDeleteFlight = () => {
     if (selectedFlight) {
       setFlights(flights.filter(f => f.id !== selectedFlight.id));
-      toast.success('Flight deleted successfully');
+      toast.success('Flight deleted from logbook');
+      setDirection(-1);
       setCurrentScreen('logbook');
       setSelectedFlight(null);
     }
@@ -144,61 +154,121 @@ export default function App() {
   };
 
   const handleTabChange = (tab: string) => {
+    const screens = ['logbook', 'stats', 'profile'];
+    const oldIndex = screens.indexOf(activeTab);
+    const newIndex = screens.indexOf(tab);
+    setDirection(newIndex > oldIndex ? 1 : -1);
+
     setActiveTab(tab);
-    if (tab === 'logbook') {
-      setCurrentScreen('logbook');
-    } else if (tab === 'stats') {
-      setCurrentScreen('stats');
-    } else if (tab === 'profile') {
-      setCurrentScreen('profile');
-    }
+    setCurrentScreen(tab as Screen);
+  };
+
+  const handleOpenSettings = () => {
+    setDirection(1);
+    setCurrentScreen('settings');
   };
 
   return (
-    <div className="h-screen w-full max-w-[480px] mx-auto bg-white overflow-hidden flex flex-col relative shadow-2xl">
-      {/* Main Content Area */}
-      <div className="flex-1 overflow-hidden">
-        {currentScreen === 'logbook' && (
-          <LogbookDashboard
-            flights={flights}
-            onFlightClick={handleFlightClick}
-            onAddFlight={handleAddFlight}
-            totalHours={totalHours}
-          />
-        )}
+    <div className="h-screen w-full max-w-[480px] mx-auto bg-slate-950 overflow-hidden flex flex-col relative shadow-2xl safe-area-top">
+      {/* Main Content Area with Transitions */}
+      <div className="flex-1 overflow-hidden relative bg-slate-900">
+        <AnimatePresence initial={false} custom={direction} mode='popLayout'>
+          <motion.div
+            key={currentScreen}
+            custom={direction}
+            variants={{
+              enter: (direction: number) => ({
+                x: direction > 0 ? '100%' : '-100%',
+                opacity: 0,
+                zIndex: 1,
+                scale: 0.95
+              }),
+              center: {
+                x: 0,
+                opacity: 1,
+                zIndex: 2,
+                scale: 1
+              },
+              exit: (direction: number) => ({
+                x: direction < 0 ? '100%' : '-100%',
+                opacity: 0,
+                zIndex: 0,
+                scale: 0.95
+              })
+            }}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            transition={{
+              x: { type: "spring", stiffness: 300, damping: 30 },
+              opacity: { duration: 0.2 }
+            }}
+            className="absolute inset-0 w-full h-full bg-slate-900"
+          >
+            {currentScreen === 'logbook' && (
+              <LogbookDashboard
+                flights={flights}
+                onFlightClick={handleFlightClick}
+                onAddFlight={handleAddFlight}
+                totalHours={totalHours}
+              />
+            )}
 
-        {currentScreen === 'add' && (
-          <AddFlightScreen
-            onBack={handleBack}
-            onSave={handleSaveFlight}
-            editingFlight={editingFlight}
-          />
-        )}
+            {currentScreen === 'add' && (
+              <AddFlightScreen
+                onBack={() => {
+                  setDirection(-1);
+                  setCurrentScreen(editingFlight ? 'details' : 'logbook');
+                }}
+                onSave={handleSaveFlight}
+                editingFlight={editingFlight}
+              />
+            )}
 
-        {currentScreen === 'details' && selectedFlight && (
-          <FlightDetailsScreen
-            flight={selectedFlight}
-            onBack={handleBack}
-            onEdit={handleEditFlight}
-            onDelete={handleDeleteFlight}
-          />
-        )}
+            {currentScreen === 'details' && selectedFlight && (
+              <FlightDetailsScreen
+                flight={selectedFlight}
+                onBack={() => {
+                  setDirection(-1);
+                  setCurrentScreen('logbook');
+                }}
+                onEdit={handleEditFlight}
+                onDelete={handleDeleteFlight}
+              />
+            )}
 
-        {currentScreen === 'stats' && (
-          <StatisticsScreen flights={flights} />
-        )}
+            {currentScreen === 'stats' && (
+              <StatisticsScreen flights={flights} />
+            )}
 
-        {currentScreen === 'profile' && (
-          <ProfileScreen flights={flights} />
-        )}
+            {currentScreen === 'profile' && (
+              <ProfileScreen flights={flights} onOpenSettings={handleOpenSettings} />
+            )}
+
+            {currentScreen === 'settings' && (
+              <SettingsScreen
+                onBack={() => {
+                  setDirection(-1);
+                  setCurrentScreen('profile');
+                }}
+                onClearData={() => {
+                  if (confirm('Are you sure? This will delete all flights permanently.')) {
+                    setFlights([]);
+                    localStorage.removeItem('pilot_flights');
+                    toast.success('All data cleared');
+                  }
+                }}
+              />
+            )}
+          </motion.div>
+        </AnimatePresence>
       </div>
 
-      {/* Bottom Navigation - Only show on main screens */}
-      {(currentScreen === 'logbook' || currentScreen === 'stats' || currentScreen === 'profile') && (
+      {/* Bottom Navigation - Hide on sub-screens */}
+      {['logbook', 'stats', 'profile'].includes(currentScreen) && (
         <BottomNavigation activeTab={activeTab} onTabChange={handleTabChange} />
       )}
 
-      {/* Toast Notifications */}
       <Toaster position="top-center" />
     </div>
   );

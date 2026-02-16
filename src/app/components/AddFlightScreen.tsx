@@ -52,49 +52,52 @@ export function AddFlightScreen({ onBack, onSave, editingFlight }: AddFlightScre
   };
 
   return (
-    <div className="flex flex-col h-full bg-gradient-to-b from-blue-50 to-white relative">
+    <div className="flex flex-col h-full bg-slate-900 pb-20 relative overflow-hidden">
+      {/* Background Decor */}
+      <div className="absolute top-0 left-0 right-0 h-64 bg-gradient-to-b from-blue-900/20 to-transparent pointer-events-none" />
+
       {/* Header */}
-      <div className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-6 shadow-lg">
+      <div className="bg-slate-900 border-b border-slate-800 px-6 pt-12 pb-6 shadow-2xl z-20 sticky top-0">
         <div className="flex items-center gap-4">
           <Button
             variant="ghost"
             size="icon"
             onClick={onBack}
-            className="h-10 w-10 rounded-full hover:bg-white/20 text-white active:scale-95"
+            className="h-10 w-10 rounded-full hover:bg-slate-800 text-white active:scale-95"
             aria-label="Go back"
           >
             <ArrowLeft className="h-6 w-6" />
           </Button>
           <div>
-            <h1 className="text-2xl">{editingFlight ? 'Edit Flight' : 'Add Flight'}</h1>
-            <p className="text-blue-100 text-sm">Log your flight details</p>
+            <div className="text-[10px] text-blue-400 font-bold tracking-[0.2em] uppercase mb-1">Flight Data Recorder</div>
+            <h1 className="text-2xl font-black tracking-tight text-white">{editingFlight ? 'EDIT LOG' : 'NEW ENTRY'}</h1>
           </div>
         </div>
       </div>
 
       {/* Form Content - Scrollable */}
-      <div className="flex-1 overflow-y-auto px-6 py-6">
+      <div className="flex-1 overflow-y-auto px-6 py-6 pb-32 z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3 }}
-          className="space-y-5"
+          className="space-y-6"
         >
           {/* Date Card */}
-          <Card className="border-l-4 border-l-blue-600">
+          <Card className="bg-slate-800/50 backdrop-blur-md border border-slate-700 shadow-xl overflow-hidden group hover:border-blue-500/50 transition-all">
             <CardContent className="p-5">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="bg-blue-100 rounded-full p-2">
-                  <CalendarIcon className="h-5 w-5 text-blue-600" />
+              <div className="flex items-center gap-3 mb-4">
+                <div className="bg-blue-500/10 p-2 rounded-lg border border-blue-500/20 group-hover:bg-blue-500/20 transition-colors">
+                  <CalendarIcon className="h-5 w-5 text-blue-400" />
                 </div>
-                <Label htmlFor="date" className="text-base m-0">Flight Date *</Label>
+                <Label htmlFor="date" className="text-sm font-bold text-slate-300 uppercase tracking-wider m-0">Flight Date</Label>
               </div>
               <Input
                 id="date"
                 type="date"
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
-                className="h-12 text-base border-gray-300 focus:border-blue-600"
+                className="h-12 bg-slate-900/50 border-slate-700 text-white focus:border-blue-500 focus:ring-blue-500/20 transition-all font-mono"
                 max={new Date().toISOString().split('T')[0]}
                 required
                 aria-required="true"
@@ -103,38 +106,38 @@ export function AddFlightScreen({ onBack, onSave, editingFlight }: AddFlightScre
           </Card>
 
           {/* Route Card */}
-          <Card className="border-l-4 border-l-blue-600">
+          <Card className="bg-slate-800/50 backdrop-blur-md border border-slate-700 shadow-xl overflow-hidden group hover:border-emerald-500/50 transition-all">
             <CardContent className="p-5">
               <div className="flex items-center gap-3 mb-4">
-                <div className="bg-blue-100 rounded-full p-2">
-                  <MapPin className="h-5 w-5 text-blue-600" />
+                <div className="bg-emerald-500/10 p-2 rounded-lg border border-emerald-500/20 group-hover:bg-emerald-500/20 transition-colors">
+                  <MapPin className="h-5 w-5 text-emerald-400" />
                 </div>
-                <Label className="text-base m-0">Route *</Label>
+                <Label className="text-sm font-bold text-slate-300 uppercase tracking-wider m-0">Route</Label>
               </div>
               <div className="space-y-4">
                 <div>
-                  <Label htmlFor="departure" className="text-sm text-gray-600 mb-2 block">Departure Airport</Label>
+                  <Label htmlFor="departure" className="text-[10px] text-slate-500 uppercase tracking-widest mb-2 block font-bold">Departure (ICAO/IATA)</Label>
                   <Input
                     id="departure"
                     type="text"
                     placeholder="e.g., KJFK"
                     value={departure}
                     onChange={(e) => setDeparture(e.target.value)}
-                    className="h-12 text-base border-gray-300 focus:border-blue-600 uppercase"
+                    className="h-12 bg-slate-900/50 border-slate-700 text-white focus:border-emerald-500 focus:ring-emerald-500/20 transition-all font-mono uppercase tracking-widest text-lg placeholder:text-slate-600"
                     maxLength={4}
                     required
                     aria-required="true"
                   />
                 </div>
                 <div>
-                  <Label htmlFor="arrival" className="text-sm text-gray-600 mb-2 block">Arrival Airport</Label>
+                  <Label htmlFor="arrival" className="text-[10px] text-slate-500 uppercase tracking-widest mb-2 block font-bold">Arrival (ICAO/IATA)</Label>
                   <Input
                     id="arrival"
                     type="text"
                     placeholder="e.g., KLAX"
                     value={arrival}
                     onChange={(e) => setArrival(e.target.value)}
-                    className="h-12 text-base border-gray-300 focus:border-blue-600 uppercase"
+                    className="h-12 bg-slate-900/50 border-slate-700 text-white focus:border-emerald-500 focus:ring-emerald-500/20 transition-all font-mono uppercase tracking-widest text-lg placeholder:text-slate-600"
                     maxLength={4}
                     required
                     aria-required="true"
@@ -145,21 +148,21 @@ export function AddFlightScreen({ onBack, onSave, editingFlight }: AddFlightScre
           </Card>
 
           {/* Aircraft Card */}
-          <Card className="border-l-4 border-l-blue-600">
+          <Card className="bg-slate-800/50 backdrop-blur-md border border-slate-700 shadow-xl overflow-hidden group hover:border-purple-500/50 transition-all">
             <CardContent className="p-5">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="bg-blue-100 rounded-full p-2">
-                  <Plane className="h-5 w-5 text-blue-600" />
+              <div className="flex items-center gap-3 mb-4">
+                <div className="bg-purple-500/10 p-2 rounded-lg border border-purple-500/20 group-hover:bg-purple-500/20 transition-colors">
+                  <Plane className="h-5 w-5 text-purple-400" />
                 </div>
-                <Label htmlFor="aircraft" className="text-base m-0">Aircraft Type *</Label>
+                <Label htmlFor="aircraft" className="text-sm font-bold text-slate-300 uppercase tracking-wider m-0">Aircraft Type</Label>
               </div>
               <Input
                 id="aircraft"
                 type="text"
-                placeholder="e.g., B737, A320, C172"
+                placeholder="e.g., B737"
                 value={aircraft}
                 onChange={(e) => setAircraft(e.target.value)}
-                className="h-12 text-base border-gray-300 focus:border-blue-600 uppercase"
+                className="h-12 bg-slate-900/50 border-slate-700 text-white focus:border-purple-500 focus:ring-purple-500/20 transition-all font-mono uppercase text-lg placeholder:text-slate-600"
                 required
                 aria-required="true"
               />
@@ -167,24 +170,24 @@ export function AddFlightScreen({ onBack, onSave, editingFlight }: AddFlightScre
           </Card>
 
           {/* Flight Time Card */}
-          <Card className="border-l-4 border-l-blue-600">
+          <Card className="bg-slate-800/50 backdrop-blur-md border border-slate-700 shadow-xl overflow-hidden group hover:border-orange-500/50 transition-all">
             <CardContent className="p-5">
               <div className="flex items-center gap-3 mb-4">
-                <div className="bg-blue-100 rounded-full p-2">
-                  <Clock className="h-5 w-5 text-blue-600" />
+                <div className="bg-orange-500/10 p-2 rounded-lg border border-orange-500/20 group-hover:bg-orange-500/20 transition-colors">
+                  <Clock className="h-5 w-5 text-orange-400" />
                 </div>
-                <Label className="text-base m-0">Flight Time *</Label>
+                <Label className="text-sm font-bold text-slate-300 uppercase tracking-wider m-0">Flight Time</Label>
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <Label htmlFor="hours" className="text-sm text-gray-600 mb-2 block">Hours</Label>
+                  <Label htmlFor="hours" className="text-[10px] text-slate-500 uppercase tracking-widest mb-2 block font-bold">Hours</Label>
                   <Input
                     id="hours"
                     type="number"
                     placeholder="0"
                     value={hours}
                     onChange={(e) => setHours(e.target.value)}
-                    className="h-12 text-base border-gray-300 focus:border-blue-600"
+                    className="h-12 bg-slate-900/50 border-slate-700 text-white focus:border-orange-500 focus:ring-orange-500/20 transition-all font-mono text-xl placeholder:text-slate-600 text-center"
                     min="0"
                     max="23"
                     required
@@ -192,14 +195,14 @@ export function AddFlightScreen({ onBack, onSave, editingFlight }: AddFlightScre
                   />
                 </div>
                 <div>
-                  <Label htmlFor="minutes" className="text-sm text-gray-600 mb-2 block">Minutes</Label>
+                  <Label htmlFor="minutes" className="text-[10px] text-slate-500 uppercase tracking-widest mb-2 block font-bold">Minutes</Label>
                   <Input
                     id="minutes"
                     type="number"
                     placeholder="0"
                     value={minutes}
                     onChange={(e) => setMinutes(e.target.value)}
-                    className="h-12 text-base border-gray-300 focus:border-blue-600"
+                    className="h-12 bg-slate-900/50 border-slate-700 text-white focus:border-orange-500 focus:ring-orange-500/20 transition-all font-mono text-xl placeholder:text-slate-600 text-center"
                     min="0"
                     max="59"
                   />
@@ -209,23 +212,23 @@ export function AddFlightScreen({ onBack, onSave, editingFlight }: AddFlightScre
           </Card>
 
           {/* Notes Card */}
-          <Card className="border-l-4 border-l-gray-400">
+          <Card className="bg-slate-800/50 backdrop-blur-md border border-slate-700 shadow-xl overflow-hidden">
             <CardContent className="p-5">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="bg-gray-100 rounded-full p-2">
-                  <FileText className="h-5 w-5 text-gray-600" />
+              <div className="flex items-center gap-3 mb-4">
+                <div className="bg-slate-700/50 p-2 rounded-lg border border-slate-600">
+                  <FileText className="h-5 w-5 text-slate-400" />
                 </div>
-                <Label htmlFor="notes" className="text-base m-0">Notes (Optional)</Label>
+                <Label htmlFor="notes" className="text-sm font-bold text-slate-300 uppercase tracking-wider m-0">Notes</Label>
               </div>
               <Textarea
                 id="notes"
-                placeholder="Add any flight notes, weather conditions, or remarks..."
+                placeholder="Remarks..."
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}
-                className="min-h-[120px] text-base border-gray-300 focus:border-blue-600 resize-none"
+                className="min-h-[120px] bg-slate-900/50 border-slate-700 text-white focus:border-blue-500 resize-none placeholder:text-slate-600 text-sm leading-relaxed"
                 maxLength={500}
               />
-              <p className="text-xs text-gray-500 mt-2">{notes.length}/500 characters</p>
+              <p className="text-[10px] text-slate-600 mt-2 text-right font-mono">{notes.length}/500</p>
             </CardContent>
           </Card>
 
@@ -235,14 +238,14 @@ export function AddFlightScreen({ onBack, onSave, editingFlight }: AddFlightScre
       </div>
 
       {/* Fixed Save Button at Bottom */}
-      <div className="absolute bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-6 py-4 shadow-lg z-20 pb-safe safe-area-bottom">
+      <div className="absolute bottom-0 left-0 right-0 bg-slate-900/90 backdrop-blur-xl border-t border-slate-800 px-6 py-4 shadow-2xl z-20 pb-safe safe-area-bottom">
         <Button
           onClick={handleSave}
-          className="w-full h-14 text-base bg-blue-600 hover:bg-blue-700 active:scale-98 transition-transform rounded-2xl"
+          className="w-full h-14 text-base font-bold tracking-wide bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-900/20 active:scale-98 transition-all rounded-xl uppercase"
           size="lg"
         >
-          <Save className="h-5 w-5 mr-2" />
-          {editingFlight ? 'Update Flight' : 'Save Flight'}
+          <Save className="h-5 w-5 mr-3" />
+          {editingFlight ? 'Update Flight' : 'Save Entry'}
         </Button>
       </div>
     </div>
