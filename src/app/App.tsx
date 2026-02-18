@@ -230,7 +230,7 @@ export default function App() {
               x: { type: "spring", stiffness: 300, damping: 30 },
               opacity: { duration: 0.2 }
             }}
-            className="absolute inset-0 w-full h-full bg-slate-900"
+            className={`absolute inset-0 w-full h-full ${currentTheme === 'dark' ? 'bg-slate-900' : 'bg-white'}`}
           >
             {!isAuthenticated ? (
               <AuthScreen onAuthSuccess={() => setIsAuthenticated(true)} />
