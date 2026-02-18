@@ -24,19 +24,16 @@
   <meta name="application-name" content="Pilot Logbook" />
 
   <style>
-    :root {
-      --primary: #2563eb;
-      --bg: #ffffff;
-    }
-
     body,
     html {
       margin: 0;
       padding: 0;
       width: 100%;
       height: 100%;
+      height: -webkit-fill-available;
       overflow: hidden;
-      background-color: var(--bg);
+      background-color: #f8fafc;
+      /* Fallback light background */
     }
 
     #app-loader {
@@ -45,7 +42,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: var(--bg);
+      background: inherit;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -81,16 +78,15 @@
     .loading-bar-container {
       width: 240px;
       height: 6px;
-      background: #f1f5f9;
+      background: rgba(0, 0, 0, 0.05);
       border-radius: 10px;
       overflow: hidden;
-      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
     }
 
     .loading-bar-fill {
       width: 100%;
       height: 100%;
-      background: linear-gradient(90deg, var(--primary), #60a5fa);
+      background: linear-gradient(90deg, #2563eb, #60a5fa);
       border-radius: 10px;
       animation: loading 2.5s infinite ease-in-out;
       -webkit-animation: loading 2.5s infinite ease-in-out;
@@ -187,7 +183,6 @@
     window.addEventListener('load', () => {
       const loader = document.getElementById('app-loader');
       if (loader) {
-        // Minimum visible time for smooth transition
         setTimeout(() => {
           loader.style.opacity = '0';
           setTimeout(() => {
@@ -197,7 +192,7 @@
       }
     });
 
-    // Handle iOS PWA orientation and status bar
+    // Handle iOS PWA status bar and scale
     document.addEventListener('touchmove', (e) => {
       if (e.scale !== 1) e.preventDefault();
     }, { passive: false });

@@ -171,6 +171,14 @@ export default function App() {
     return (localStorage.getItem('app_theme') as 'dark' | 'light') || 'dark';
   });
 
+  useEffect(() => {
+    if (currentTheme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [currentTheme]);
+
   const handleThemeChange = (theme: 'dark' | 'light') => {
     setCurrentTheme(theme);
     localStorage.setItem('app_theme', theme);
@@ -188,7 +196,7 @@ export default function App() {
   };
 
   return (
-    <div className={`fixed inset-0 w-full max-w-[480px] mx-auto overflow-hidden flex flex-col shadow-2xl transition-colors duration-500 ${currentTheme === 'dark' ? 'bg-slate-950 dark' : 'bg-slate-50'}`}>
+    <div className={`fixed inset-0 w-full max-w-[480px] mx-auto overflow-hidden flex flex-col shadow-2xl transition-colors duration-500 h-[100dvh] ${currentTheme === 'dark' ? 'bg-slate-950' : 'bg-slate-50'}`}>
       {/* Main Content Area with Transitions */}
       <div className={`flex-1 relative transition-colors duration-500 ${currentTheme === 'dark' ? 'bg-slate-900' : 'bg-white'}`}>
         <AnimatePresence initial={false} custom={direction} mode='popLayout'>
