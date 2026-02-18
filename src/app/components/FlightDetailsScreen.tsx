@@ -256,7 +256,11 @@ export function FlightDetailsScreen({ flight, onBack, onEdit, onDelete }: Flight
       {/* Fixed Action Buttons */}
       <div className="absolute bottom-0 left-0 right-0 bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border-t border-slate-200 dark:border-slate-800 px-6 py-6 shadow-2xl z-20 pb-safe safe-area-bottom flex gap-3 transition-colors">
         <Button
-          onClick={onDelete}
+          onClick={() => {
+            if (confirm('Are you sure you want to delete this flight log? This action cannot be undone.')) {
+              onDelete();
+            }
+          }}
           variant="destructive"
           className="flex-1 h-12 bg-red-100 dark:bg-red-500/10 text-red-600 dark:text-red-500 hover:bg-red-200 dark:hover:bg-red-500/20 border-red-200 dark:border-red-500/20 border shadow-none transition-colors"
         >
