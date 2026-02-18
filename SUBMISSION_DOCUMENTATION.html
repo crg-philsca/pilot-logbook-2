@@ -133,27 +133,32 @@
         <div id="ui-section" class="section">
             <div class="section-header">Program User Interface</div>
             <div class="content">
-                <p>The Pilot Logbook App employs a <strong>Cockpit-Inspired Design System</strong>, adhering to modern
-                    UI principles for aviation tools.</p>
+                <p>The Pilot Logbook App employs a <strong>Cockpit-Inspired Design System</strong> that strictly adheres
+                    to core UI principles. <strong>User-Centricity</strong> is at the forefront, evidenced by the robust
+                    Dark Mode that preserves night vision—a critical environmental requirement for pilots.
+                    <strong>Simplicity</strong> is achieved through a decluttered interface where secondary actions are
+                    tucked away, allowing users to focus on primary tasks without distraction.</p>
 
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                     <div>
-                        <h3>Visual Hierarchy</h3>
-                        <p>Key flight data (Airport Codes, total hours) is maximized using size and contrast, mimicking
-                            flight deck instruments for instant readability.</p>
+                        <h3>Consistency</h3>
+                        <p>A unified visual language is applied across all screens, featuring <strong>Rounded-XL
+                                (rounded square)</strong> buttons, glassmorphism headers, and a cohesive Blue/Slate
+                            color palette. This uniformity reduces the learning curve, ensuring users feel confident
+                            navigating between the Logbook, Profile, and Settings screens.</p>
 
-                        <h3>Color & Contrast</h3>
-                        <p>Uses a deep Slate/Blue palette for reduced eye strain (Dark Mode compatible logic) with
-                            high-contrast White/Blue accents for actionable elements.</p>
+                        <h3>Accessibility</h3>
+                        <p>The design ensures inclusivity through high-contrast text hierarchies and generously sized
+                            touch targets (min 44px height). Interactive elements are clearly distinguishable, and form
+                            inputs utilize explicit, bold labels to ensure clarity for all users, regardless of
+                            environmental lighting conditions.</p>
                     </div>
                     <div>
-                        <h3>Typography</h3>
-                        <p>Monospaced fonts (<code>JetBrains Mono</code> equivalent) are used for numerical data (Time,
-                            Coordinates) to ensure rapid scanning and alignment, critical for pilot logs.</p>
-
-                        <h3>Consistency</h3>
-                        <p>Uniform interaction patterns: All primary actions (Add Flight, Edit) are located in easily
-                            accessible zones (Thumb Zone) using consistent iconography.</p>
+                        <h3>Scalability</h3>
+                        <p>Built on a modular foundation of reusable React components, the interface is designed to
+                            grow. New features can be integrated seamlessly using existing building blocks like the
+                            standard "Card" and "Input" components, maintaining visual harmony as the application
+                            evolves.</p>
                     </div>
                 </div>
             </div>
@@ -163,20 +168,17 @@
         <div id="ux-section" class="section">
             <div class="section-header">Program User Experience</div>
             <div class="content">
-                <h3>User-Centric Workflow</h3>
-                <p>Designed for quick entry: The app prioritizes logging flights with minimal taps. Features "Add to
-                    Home Screen" friction reduction via custom improved PWA installation flow.</p>
+                <h3>Efficiency</h3>
+                <p>The workflow is optimized for speed, helping pilots log flights with minimal effort. Data entry is
+                    streamlined with specific numeric keyboards for flight times and auto-filled dates. Recent updates
+                    have further enhanced efficiency by implementing compact layouts that display more critical
+                    information "above the fold," reducing the need for scrolling.</p>
 
-                <h3>Micro-Interactions</h3>
-                <ul>
-                    <li><strong>Tactile Feedback:</strong> Buttons scale down (0.95x) on press.</li>
-                    <li><strong>Transitions:</strong> Smooth page transitions using Framer Motion.</li>
-                    <li><strong>Loading States:</strong> Custom "Pre-Flight" animation sequence.</li>
-                </ul>
-
-                <h3>Feedback Systems</h3>
-                <p>Toast notifications confirm all critical actions (Save, Delete, Update) to keep the user informed of
-                    system status.</p>
+                <h3>Feedback & Guidance</h3>
+                <p>The system provides immediate, clear feedback for every interaction. Toast notifications confirm
+                    successful actions like saving a flight, while active state indicators (like the "ACTIVE" badge in
+                    Settings) provide status at a glance. Destructive actions are guarded by confirmation dialogs,
+                    preventing accidental data loss.</p>
             </div>
         </div>
 
@@ -187,21 +189,24 @@
                 <h3>Implemented Layouts</h3>
 
                 <div class="feature-card">
-                    <strong>Bottom Navigation Layout</strong>
-                    <p>Standard robust navigation for top-level destinations (Logbook, Stats, Profile). Keeps key areas
-                        instantly accessible via thumb.</p>
+                    <strong>Compact Vertical Stack</strong>
+                    <p>Used in the "Add Flight" and "Flight Details" screens, this layout minimizes padding and margins
+                        to maximize information density. Content flows logically from top to bottom, ensuring efficient
+                        scanning and entry on mobile devices.</p>
                 </div>
 
                 <div class="feature-card">
-                    <strong>Linear Layout (Vertical Stack)</strong>
-                    <p>Used in Forms and Feeds. Content flows logically from top to bottom (Date -> Route -> Aircraft ->
-                        Time).</p>
+                    <strong>Route Visualization Cards</strong>
+                    <p>Instead of simple lists, flight segments are grouped into "Boarding Pass" style containers. These
+                        cards visually represent the route (Departure → Arrival) with intuitive iconography and centered
+                        distance badges, making abstract data instantly tangible.</p>
                 </div>
 
                 <div class="feature-card">
-                    <strong>Card Layout (Container)</strong>
-                    <p>Groups related information (Flight segments) into tangible "Boarding Pass" style containers for
-                        clearer organization.</p>
+                    <strong>Bottom Navigation</strong>
+                    <p>Top-level destinations (Logbook, Statistics, Profile) are anchored in a persistent bottom bar.
+                        This ensures key areas of the application remain instantly accessible via the "thumb zone,"
+                        facilitating rapid switching between contexts.</p>
                 </div>
             </div>
         </div>

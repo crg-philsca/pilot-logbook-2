@@ -7,5 +7,6 @@ html,
 body {
     background-color: var(--background, #f8fafc);
     transition: background-color 0.5s ease;
-    overscroll-behavior: none;
+    overflow: hidden;
+    height: 100%;
 }

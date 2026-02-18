@@ -30,31 +30,58 @@ export function FlightDetailsScreen({ flight, onBack, onEdit, onDelete }: Flight
   };
 
   return (
-    <div className="flex flex-col h-full bg-slate-50 dark:bg-slate-900 pb-20 relative overflow-hidden transition-colors duration-500">
+    <div className="flex flex-col h-full bg-slate-50 dark:bg-slate-900 relative overflow-hidden transition-colors duration-500">
       {/* Background Decor */}
       <div className="absolute top-0 left-0 right-0 h-64 bg-gradient-to-b from-blue-500/10 dark:from-blue-900/20 to-transparent pointer-events-none" />
 
       {/* Header */}
-      <div className="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 px-6 pt-12 pb-6 shadow-xl z-20 sticky top-0 transition-colors">
-        <div className="flex items-center gap-4">
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={onBack}
-            className="h-10 w-10 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-800 dark:text-white active:scale-95 transition-colors"
-            aria-label="Go back"
-          >
-            <ArrowLeft className="h-6 w-6" />
-          </Button>
-          <div>
-            <div className="text-[10px] text-blue-500 font-bold tracking-[0.2em] uppercase mb-1">Flight Record</div>
-            <h1 className="text-2xl font-black tracking-tight text-slate-900 dark:text-white mb-0 transition-colors">LOG #{flight.id}</h1>
+      <div className="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 px-6 pt-safe pb-4 shadow-xl z-20 sticky top-0 transition-colors">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={onBack}
+              className="h-10 w-10 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-800 dark:text-white active:scale-95 transition-colors"
+              aria-label="Go back"
+            >
+              <ArrowLeft className="h-6 w-6" />
+            </Button>
+            <div>
+              <div className="text-[10px] text-blue-500 font-bold tracking-[0.2em] uppercase mb-1">Flight Record</div>
+              <h1 className="text-2xl font-black tracking-tight text-slate-900 dark:text-white mb-0 transition-colors">LOG #{flight.id}</h1>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-3">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => {
+                if (confirm('Are you sure you want to delete this flight log? This action cannot be undone.')) {
+                  onDelete();
+                }
+              }}
+              className="h-10 w-10 rounded-xl bg-red-50 dark:bg-red-500/10 hover:bg-red-100 dark:hover:bg-red-500/20 text-red-500 dark:text-red-400 transition-colors border border-red-200 dark:border-red-500/20"
+              title="Delete Log"
+            >
+              <Trash2 className="h-5 w-5" />
+            </Button>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={onEdit}
+              className="h-10 w-10 rounded-xl bg-blue-50 dark:bg-blue-500/10 hover:bg-blue-100 dark:hover:bg-blue-500/20 text-blue-600 dark:text-blue-400 transition-colors border border-blue-200 dark:border-blue-500/20"
+              title="Edit Log"
+            >
+              <Edit className="h-5 w-5" />
+            </Button>
           </div>
         </div>
       </div>
 
       {/* Content */}
-      <div className="flex-1 overflow-y-auto px-6 py-6 pb-40 z-10 space-y-6">
+      <div className="flex-1 overflow-y-auto px-6 py-3 pb-6 z-10 space-y-3">
 
         {/* Main Flight Ticket */}
         <Card className="bg-white dark:bg-slate-800/50 backdrop-blur-md border border-slate-200 dark:border-slate-700 shadow-xl overflow-hidden relative transition-colors">
@@ -64,14 +91,14 @@ export function FlightDetailsScreen({ flight, onBack, onEdit, onDelete }: Flight
 
           <CardContent className="p-0">
             {/* Upper Section: Route */}
-            <div className="p-6 border-b border-dashed border-slate-200 dark:border-slate-700 transition-colors">
+            <div className="p-4 border-b border-dashed border-slate-200 dark:border-slate-700 transition-colors">
               <div className="flex items-center justify-between gap-4">
                 <div className="text-center flex-1">
-                  <div className="text-4xl font-black text-slate-900 dark:text-white tracking-widest transition-colors">{flight.departure}</div>
-                  <div className="text-[10px] text-slate-500 dark:text-slate-500 uppercase tracking-widest mt-1">Departure</div>
+                  <div className="text-2xl font-black text-slate-900 dark:text-white tracking-widest transition-colors">{flight.departure}</div>
+                  <div className="text-[8px] text-slate-500 dark:text-slate-500 uppercase tracking-widest mt-1">Departure</div>
                 </div>
 
-                <div className="flex-1 flex flex-col items-center justify-center px-4 relative">
+                <div className="flex-1 flex flex-col items-center justify-center px-2 relative">
                   {/* Vector Line */}
                   <div className="w-full h-px bg-slate-200 dark:bg-slate-700 relative flex items-center transition-colors">
                     <div className="absolute left-0 w-1.5 h-1.5 bg-slate-300 dark:bg-slate-600 rounded-full transition-colors"></div>
@@ -98,16 +125,16 @@ export function FlightDetailsScreen({ flight, onBack, onEdit, onDelete }: Flight
                 </div>
 
                 <div className="text-center flex-1">
-                  <div className="text-4xl font-black text-slate-900 dark:text-white tracking-widest transition-colors">{flight.arrival}</div>
-                  <div className="text-[10px] text-slate-500 dark:text-slate-500 uppercase tracking-widest mt-1">Arrival</div>
+                  <div className="text-2xl font-black text-slate-900 dark:text-white tracking-widest transition-colors">{flight.arrival}</div>
+                  <div className="text-[8px] text-slate-500 dark:text-slate-500 uppercase tracking-widest mt-1">Arrival</div>
                 </div>
               </div>
             </div>
 
             {/* Lower Section: Details */}
-            <div className="p-6 grid grid-cols-2 gap-y-6 gap-x-4 bg-slate-50 dark:bg-slate-900/30 transition-colors">
+            <div className="p-4 grid grid-cols-2 gap-y-3 gap-x-4 bg-slate-50 dark:bg-slate-900/30 transition-colors">
               <div className="col-span-2">
-                <div className="flex items-center gap-2 text-blue-500 dark:text-blue-400 mb-1">
+                <div className="flex items-center gap-2 text-blue-500 dark:text-blue-400 mb-0.5">
                   <Calendar className="h-3 w-3" />
                   <span className="text-[10px] uppercase tracking-widest font-bold">Date</span>
                 </div>
@@ -132,22 +159,22 @@ export function FlightDetailsScreen({ flight, onBack, onEdit, onDelete }: Flight
         </Card>
 
         {/* Route Visualization Card */}
-        <div className="space-y-4">
+        <div className="space-y-2">
           <div className="flex justify-between items-center px-1">
-            <h2 className="text-sm font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Route Visualization</h2>
+            <h2 className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Route Visualization</h2>
           </div>
 
           <Card className="bg-white dark:bg-slate-800/50 backdrop-blur-md border border-slate-200 dark:border-slate-700 shadow-xl overflow-hidden transition-colors">
             <CardContent className="p-0">
               {/* Grid Background Area */}
-              <div className="h-48 relative bg-slate-50 dark:bg-slate-900/50 overflow-hidden group">
+              <div className="h-36 relative bg-slate-50 dark:bg-slate-900/50 overflow-hidden group">
                 {/* Grid Pattern */}
                 <div className="absolute inset-0 opacity-[0.03] dark:opacity-[0.05]"
                   style={{ backgroundImage: 'linear-gradient(#000 1px, transparent 1px), linear-gradient(90deg, #000 1px, transparent 1px)', backgroundSize: '20px 20px' }}>
                 </div>
 
                 {/* SVG Route */}
-                <svg className="absolute inset-0 w-full h-full p-10" viewBox="0 0 400 200" preserveAspectRatio="xMidYMid meet">
+                <svg className="absolute inset-0 w-full h-full p-4" viewBox="0 0 400 200" preserveAspectRatio="xMidYMid meet">
                   {/* Path Arc */}
                   <path
                     d="M 50 120 Q 200 60 350 120"
@@ -199,7 +226,7 @@ export function FlightDetailsScreen({ flight, onBack, onEdit, onDelete }: Flight
                 </svg>
 
                 {/* Distance Badge */}
-                <div className="absolute bottom-4 right-4 bg-white/80 dark:bg-slate-800/80 backdrop-blur-md border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-1.5 shadow-lg flex items-center gap-2">
+                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-white/80 dark:bg-slate-800/80 backdrop-blur-md border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-1.5 shadow-lg flex items-center gap-2">
                   <span className="text-[10px] text-slate-400">≈</span>
                   <span className="text-xs font-bold text-slate-700 dark:text-slate-200 font-mono">{(flight.flightTime * 145).toFixed(0)} nm</span>
                 </div>
@@ -252,28 +279,7 @@ export function FlightDetailsScreen({ flight, onBack, onEdit, onDelete }: Flight
 
       </div>
 
-      {/* Fixed Action Buttons */}
-      <div className="absolute bottom-0 left-0 right-0 bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border-t border-slate-200 dark:border-slate-800 px-6 py-6 shadow-2xl z-20 pb-safe safe-area-bottom flex gap-3 transition-colors">
-        <Button
-          onClick={() => {
-            if (confirm('Are you sure you want to delete this flight log? This action cannot be undone.')) {
-              onDelete();
-            }
-          }}
-          variant="destructive"
-          className="flex-1 h-12 bg-red-100 dark:bg-red-500/10 text-red-600 dark:text-red-500 hover:bg-red-200 dark:hover:bg-red-500/20 border-red-200 dark:border-red-500/20 border shadow-none transition-colors"
-        >
-          <Trash2 className="h-4 w-4 mr-2" />
-          DELETE
-        </Button>
-        <Button
-          onClick={onEdit}
-          className="flex-[2] h-12 bg-blue-600 hover:bg-blue-500 text-white font-bold tracking-wide shadow-lg shadow-blue-500/20 dark:shadow-blue-900/20 transition-all"
-        >
-          <Edit className="h-4 w-4 mr-2" />
-          EDIT
-        </Button>
-      </div>
+
 
     </div>
   );

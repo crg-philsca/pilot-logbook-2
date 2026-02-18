@@ -92,18 +92,18 @@ export function LogbookDashboard({ flights, onFlightClick, onAddFlight, totalHou
       )}
 
       {/* Header with Cockpit Design */}
-      <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border-b border-slate-200 dark:border-slate-800 px-6 pt-safe pb-4 shadow-xl z-20 sticky top-0 transition-colors duration-500">
-        <div className="flex items-center justify-between mt-2 mb-4">
+      <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border-b border-slate-200 dark:border-slate-800 px-6 pt-safe pb-5 shadow-xl z-20 sticky top-0 transition-colors duration-500">
+        <div className="flex items-center justify-between mb-4">
           <div>
-            <h1 className="text-3xl font-black tracking-tight text-slate-900 dark:text-white drop-shadow-sm transition-colors duration-500 uppercase">Pilot Logbook</h1>
+            <h1 className="text-xl font-black tracking-tight text-slate-900 dark:text-white drop-shadow-sm transition-colors duration-500 uppercase">Pilot Logbook</h1>
           </div>
 
           <div className="flex items-center gap-3">
             {/* Total Hours Badge */}
-            <div className="bg-slate-100 dark:bg-slate-800/80 backdrop-blur-md rounded-xl px-4 py-2 text-center border border-slate-200 dark:border-slate-700/50 shadow-lg min-w-[90px] relative overflow-hidden group transition-colors duration-500">
+            <div className="bg-blue-50/50 dark:bg-blue-950/30 backdrop-blur-md rounded-xl h-11 px-4 flex items-center justify-center gap-2 border border-blue-200 dark:border-blue-500/30 shadow-[0_0_15px_rgba(59,130,246,0.15)] dark:shadow-[0_0_20px_rgba(59,130,246,0.25)] relative overflow-hidden group transition-all duration-500 shrink-0">
               <div className="absolute inset-0 bg-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-              <div className="text-2xl font-mono font-bold text-slate-900 dark:text-white tracking-tighter leading-none transition-colors duration-500">{totalHours.toFixed(1)}</div>
-              <div className="text-[8px] uppercase tracking-widest text-slate-500 dark:text-slate-400 mt-1 font-bold">Hours</div>
+              <div className="text-lg font-mono font-bold text-blue-600 dark:text-blue-400 tracking-tighter leading-none transition-colors duration-500 drop-shadow-[0_0_5px_rgba(59,130,246,0.4)]">{totalHours.toFixed(1)}</div>
+              <div className="text-[10px] uppercase tracking-widest text-blue-500 dark:text-blue-400/70 font-bold mt-0.5">HOURS</div>
             </div>
           </div>
         </div>
@@ -163,7 +163,7 @@ export function LogbookDashboard({ flights, onFlightClick, onAddFlight, totalHou
       </div>
 
       {/* Flight List */}
-      <div className="flex-1 overflow-y-auto px-6 pt-4 space-y-4 pb-32 bg-slate-50 dark:bg-slate-950/50 transition-colors duration-500">
+      <div className="flex-1 overflow-y-auto px-6 pt-4 space-y-4 pb-32 bg-slate-50 dark:bg-slate-950/50 transition-colors duration-500 touch-pan-y" style={{ touchAction: 'pan-y' }}>
         {filteredFlights.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-20 text-center px-6 opacity-60">
             <Plane className="h-16 w-16 text-slate-300 dark:text-slate-700 mb-4 transition-colors" />
@@ -196,13 +196,13 @@ export function LogbookDashboard({ flights, onFlightClick, onAddFlight, totalHou
                 <div className="px-5 py-6">
                   <div className="flex items-center justify-between">
                     {/* Departure */}
-                    <div className="text-left w-24">
-                      <span className="block text-3xl font-black text-slate-900 dark:text-white tracking-widest font-mono transition-colors">{flight.departure}</span>
-                      <span className="text-[9px] uppercase font-bold text-slate-400 dark:text-slate-500 tracking-wider mt-1 block transition-colors">Departure</span>
+                    <div className="text-left w-[72px] shrink-0 overflow-hidden">
+                      <span className="block text-lg font-black text-slate-900 dark:text-white tracking-tighter font-mono transition-colors leading-none">{flight.departure}</span>
+                      <span className="text-[6px] uppercase font-bold text-slate-400 dark:text-slate-500 tracking-tighter mt-1 block transition-colors">DEPARTURE</span>
                     </div>
 
                     {/* Center Visual */}
-                    <div className="flex-1 flex flex-col items-center justify-center px-4 relative">
+                    <div className="flex-1 flex flex-col items-center justify-center px-1 relative">
                       {/* Vector Line */}
                       <div className="w-full h-px bg-slate-200 dark:bg-slate-700 relative flex items-center transition-colors">
                         <div className="absolute left-0 w-1.5 h-1.5 bg-slate-300 dark:bg-slate-600 rounded-full transition-colors"></div>
@@ -235,9 +235,9 @@ export function LogbookDashboard({ flights, onFlightClick, onAddFlight, totalHou
                     </div>
 
                     {/* Arrival */}
-                    <div className="text-right w-24">
-                      <span className="block text-3xl font-black text-slate-900 dark:text-white tracking-widest font-mono transition-colors">{flight.arrival}</span>
-                      <span className="text-[9px] uppercase font-bold text-slate-400 dark:text-slate-500 tracking-wider mt-1 block transition-colors">Arrival</span>
+                    <div className="text-right w-[72px] shrink-0 overflow-hidden">
+                      <span className="block text-lg font-black text-slate-900 dark:text-white tracking-tighter font-mono transition-colors leading-none">{flight.arrival}</span>
+                      <span className="text-[6px] uppercase font-bold text-slate-400 dark:text-slate-500 tracking-tighter mt-1 block transition-colors">ARRIVAL</span>
                     </div>
                   </div>
                 </div>

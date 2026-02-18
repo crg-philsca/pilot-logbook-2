@@ -198,7 +198,7 @@ export default function App() {
   };
 
   return (
-    <div className={`fixed inset-0 w-full max-w-[480px] mx-auto overflow-hidden flex flex-col shadow-2xl transition-colors duration-500 h-[100dvh] ${currentTheme === 'dark' ? 'bg-slate-950' : 'bg-slate-50'}`}>
+    <div className={`fixed inset-0 w-full max-w-[480px] mx-auto flex flex-col shadow-2xl transition-colors duration-500 h-[100dvh] ${currentTheme === 'dark' ? 'bg-slate-950' : 'bg-slate-50'}`}>
       {/* Main Content Area with Transitions */}
       <div className={`flex-1 relative transition-colors duration-500 ${currentTheme === 'dark' ? 'bg-slate-900' : 'bg-white'}`}>
         <AnimatePresence initial={false} custom={direction} mode='popLayout'>

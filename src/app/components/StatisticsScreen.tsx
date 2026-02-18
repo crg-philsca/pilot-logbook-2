@@ -70,25 +70,25 @@ export function StatisticsScreen({ flights }: StatisticsScreenProps) {
       <div className="absolute top-0 left-0 right-0 h-64 bg-gradient-to-b from-blue-500/10 dark:from-blue-900/20 to-transparent pointer-events-none" />
 
       {/* Header */}
-      <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border-b border-slate-200 dark:border-slate-800 px-6 pt-safe pb-6 shadow-xl z-20 sticky top-0 transition-colors duration-500">
-        <div className="text-[10px] text-blue-500 font-bold tracking-[0.2em] uppercase mb-1">Performance Metrics</div>
-        <h1 className="text-3xl font-black tracking-tight text-slate-900 dark:text-white mb-6 transition-colors">STATISTICS</h1>
+      <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border-b border-slate-200 dark:border-slate-800 px-6 pt-safe pb-4 shadow-xl z-50 sticky top-0 transition-colors duration-500">
+        <div className="text-[10px] text-blue-500 font-bold tracking-[0.2em] uppercase mb-0.5">Performance Metrics</div>
+        <h1 className="text-xl font-black tracking-tight text-slate-900 dark:text-white transition-colors uppercase">STATISTICS</h1>
       </div>
 
       {/* Content */}
-      <div className="flex-1 overflow-y-auto px-6 pt-6 pb-32 space-y-8 z-10">
+      <div className="flex-1 overflow-y-auto px-6 pt-4 pb-32 space-y-4 z-10 touch-pan-y" style={{ touchAction: 'pan-y' }}>
         {/* Stats Grid */}
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-2 gap-3">
           {stats.map((stat, i) => {
             const Icon = stat.icon;
             return (
               <Card key={i} className={`border ${stat.borderColor} bg-white dark:bg-slate-800/40 backdrop-blur-md shadow-lg overflow-hidden relative group transition-colors`}>
-                <CardContent className="p-4 relative z-10 text-center flex flex-col items-center">
-                  <div className={`rounded-lg p-2 w-fit mb-3 ${stat.bgColor}`}>
-                    <Icon className={`h-5 w-5 ${stat.color}`} />
+                <CardContent className="p-3 relative z-10 text-center flex flex-col items-center">
+                  <div className={`rounded-lg p-1.5 w-fit mb-2 ${stat.bgColor}`}>
+                    <Icon className={`h-4 w-4 ${stat.color}`} />
                   </div>
-                  <div className="text-2xl font-mono font-bold text-slate-900 dark:text-white tracking-tight mb-1 transition-colors">{stat.value}</div>
-                  <div className="text-[10px] uppercase tracking-wider font-bold text-slate-500 dark:text-slate-400 transition-colors">{stat.label}</div>
+                  <div className="text-xl font-mono font-bold text-slate-900 dark:text-white tracking-tight mb-0.5 transition-colors">{stat.value}</div>
+                  <div className="text-[9px] uppercase tracking-wider font-bold text-slate-500 dark:text-slate-400 transition-colors">{stat.label}</div>
                 </CardContent>
                 {/* Hover Glow */}
                 <div className={`absolute inset-0 opacity-0 group-hover:opacity-5 transition-opacity bg-${stat.color.split('-')[1]}-400`} />
@@ -99,9 +99,9 @@ export function StatisticsScreen({ flights }: StatisticsScreenProps) {
 
         {/* Aircraft Breakdown */}
         {topAircraft.length > 0 && (
-          <div className="space-y-4">
-            <h2 className="text-sm font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider flex items-center gap-2 transition-colors">
-              <Plane className="h-4 w-4" />
+          <div className="space-y-3">
+            <h2 className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider flex items-center gap-2 transition-colors">
+              <Plane className="h-3.5 w-3.5" />
               Hours by Aircraft
             </h2>
             <Card className="bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 backdrop-blur-sm overflow-hidden transition-colors">
@@ -110,12 +110,12 @@ export function StatisticsScreen({ flights }: StatisticsScreenProps) {
                   const percentage = (hours / totalHours) * 100;
                   return (
                     <div key={aircraft} className="border-b border-slate-100 dark:border-slate-700/50 last:border-0 hover:bg-slate-50 dark:hover:bg-slate-700/30 transition-colors">
-                      <div className="px-5 py-4">
+                      <div className="px-4 py-3">
                         <div className="flex justify-between items-end mb-2">
-                          <span className="font-mono font-bold text-slate-900 dark:text-white text-lg transition-colors">{aircraft}</span>
+                          <span className="font-mono font-bold text-slate-900 dark:text-white text-base transition-colors">{aircraft}</span>
                           <div className="text-right">
-                            <span className="text-blue-500 dark:text-blue-400 font-mono font-bold transition-colors">{hours.toFixed(1)}h</span>
-                            <span className="text-slate-400 dark:text-slate-500 text-xs ml-2 transition-colors">({percentage.toFixed(0)}%)</span>
+                            <span className="text-blue-500 dark:text-blue-400 font-mono font-bold text-sm transition-colors">{hours.toFixed(1)}h</span>
+                            <span className="text-slate-400 dark:text-slate-500 text-[10px] ml-1.5 transition-colors">({percentage.toFixed(0)}%)</span>
                           </div>
                         </div>
                         <div className="w-full bg-slate-100 dark:bg-slate-900/50 rounded-full h-1.5 overflow-hidden transition-colors">

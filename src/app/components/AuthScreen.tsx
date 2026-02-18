@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { LogIn, UserPlus, Plane, Mail, Lock, ArrowRight } from 'lucide-react';
+import { LogIn, UserPlus, Plane, Mail, Lock } from 'lucide-react';
 import { Button } from './ui/button';
 import { Card, CardContent } from './ui/card';
 import { Input } from './ui/input';
@@ -58,121 +58,124 @@ export function AuthScreen({ onAuthSuccess }: AuthScreenProps) {
                 />
             </div>
 
-            <div className="flex-1 overflow-y-auto z-10 flex flex-col items-center justify-center p-6 pb-20">
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="w-full max-w-sm"
-                >
-                    {/* Logo Section */}
-                    <div className="flex flex-col items-center mb-8">
-                        <div className="relative mb-6">
-                            <div className="absolute inset-0 bg-blue-500/10 rounded-full blur-2xl animate-pulse"></div>
-                            <img src="/app-logo.png" className="h-24 w-24 object-contain relative z-10 brightness-110 drop-shadow-[0_0_15px_rgba(37,99,235,0.2)]" alt="App Logo" />
-                        </div>
-                        <h1 className="text-3xl font-black tracking-tighter text-slate-900 dark:text-white transition-colors uppercase">
-                            FLIGHT<span className="text-blue-600 dark:text-blue-400">LOG</span>
-                        </h1>
-                        <p className="text-slate-500 dark:text-slate-400 text-sm font-bold tracking-[0.1em] uppercase mt-1">Digital Pilot Logbook</p>
-                    </div>
-
-                    <Card className="bg-white/80 dark:bg-slate-900/40 backdrop-blur-xl border-slate-200 dark:border-slate-800 shadow-2xl overflow-hidden transition-colors">
-                        <CardContent className="p-8">
-                            <div className="flex gap-4 mb-8">
-                                <button
-                                    onClick={() => setMode('signin')}
-                                    className={`flex-1 pb-2 text-sm font-bold tracking-widest uppercase transition-all border-b-2 ${mode === 'signin' ? 'border-blue-600 text-blue-600' : 'border-transparent text-slate-400'}`}
-                                >
-                                    SIGN IN
-                                </button>
-                                <button
-                                    onClick={() => setMode('signup')}
-                                    className={`flex-1 pb-2 text-sm font-bold tracking-widest uppercase transition-all border-b-2 ${mode === 'signup' ? 'border-blue-600 text-blue-600' : 'border-transparent text-slate-400'}`}
-                                >
-                                    SIGN UP
-                                </button>
+            <div className="flex-1 overflow-y-auto z-10">
+                <div className="min-h-full flex flex-col items-center justify-center p-6 py-12 pb-24">
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="w-full max-w-sm"
+                    >
+                        {/* Logo Section */}
+                        <div className="flex flex-col items-center mb-6">
+                            <div className="relative mb-4 group">
+                                <div className="absolute inset-0 bg-blue-500/20 rounded-3xl blur-xl opacity-50 animate-pulse"></div>
+                                <div className="w-24 h-24 rounded-3xl overflow-hidden bg-white dark:bg-slate-800 shadow-2xl relative z-10 flex items-center justify-center">
+                                    <img src="/app-logo.png" className="w-full h-full object-cover" alt="App Logo" />
+                                </div>
                             </div>
+                            <h1 className="text-2xl font-black tracking-tighter text-slate-900 dark:text-white transition-colors uppercase">
+                                FLIGHT<span className="text-blue-600 dark:text-blue-400">LOG</span>
+                            </h1>
+                            <p className="text-slate-500 dark:text-slate-400 text-xs font-bold tracking-[0.1em] uppercase mt-0.5">Digital Pilot Logbook</p>
+                        </div>
 
-                            <form onSubmit={handleSubmit} className="space-y-4">
-                                <AnimatePresence mode="popLayout">
-                                    {mode === 'signup' && (
-                                        <motion.div
-                                            key="name-field"
-                                            initial={{ opacity: 0, height: 0 }}
-                                            animate={{ opacity: 1, height: 'auto' }}
-                                            exit={{ opacity: 0, height: 0 }}
-                                        >
-                                            <Label className="text-xs font-black uppercase tracking-widest text-slate-500 dark:text-slate-400 transition-colors">Pilot Name</Label>
-                                            <div className="relative mt-1">
-                                                <UserPlus className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
-                                                <Input
-                                                    placeholder="Captain John Doe"
-                                                    value={name}
-                                                    onChange={(e) => setName(e.target.value)}
-                                                    className="pl-10 h-12 bg-slate-50 dark:bg-slate-900/50 border-slate-200 dark:border-slate-700 focus:border-blue-500 transition-all font-medium"
-                                                    required
-                                                />
+                        <Card className="bg-white/80 dark:bg-slate-900/40 backdrop-blur-xl border-slate-200 dark:border-slate-800 shadow-2xl overflow-hidden transition-colors">
+                            <CardContent className="p-6">
+                                <div className="flex gap-4 mb-6">
+                                    <button
+                                        onClick={() => setMode('signin')}
+                                        className={`flex-1 pb-2 text-xs font-bold tracking-widest uppercase transition-all border-b-2 ${mode === 'signin' ? 'border-blue-600 text-blue-600' : 'border-transparent text-slate-400'}`}
+                                    >
+                                        SIGN IN
+                                    </button>
+                                    <button
+                                        onClick={() => setMode('signup')}
+                                        className={`flex-1 pb-2 text-xs font-bold tracking-widest uppercase transition-all border-b-2 ${mode === 'signup' ? 'border-blue-600 text-blue-600' : 'border-transparent text-slate-400'}`}
+                                    >
+                                        SIGN UP
+                                    </button>
+                                </div>
+
+                                <form onSubmit={handleSubmit} className="space-y-4">
+                                    <AnimatePresence mode="popLayout">
+                                        {mode === 'signup' && (
+                                            <motion.div
+                                                key="name-field"
+                                                initial={{ opacity: 0, height: 0 }}
+                                                animate={{ opacity: 1, height: 'auto' }}
+                                                exit={{ opacity: 0, height: 0 }}
+                                            >
+                                                <Label className="text-[10px] font-black uppercase tracking-widest text-slate-500 dark:text-slate-400 transition-colors">Pilot Name</Label>
+                                                <div className="relative mt-1">
+                                                    <UserPlus className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-slate-400" />
+                                                    <Input
+                                                        placeholder="Captain John Doe"
+                                                        value={name}
+                                                        onChange={(e) => setName(e.target.value)}
+                                                        className="pl-9 h-11 bg-slate-50 dark:bg-slate-900/50 border-slate-200 dark:border-slate-700 focus:border-blue-500 transition-all font-medium text-sm rounded-xl"
+                                                        required
+                                                    />
+                                                </div>
+                                            </motion.div>
+                                        )}
+                                    </AnimatePresence>
+
+                                    <div>
+                                        <Label className="text-[10px] font-black uppercase tracking-widest text-slate-500 dark:text-slate-400 transition-colors">Email Address</Label>
+                                        <div className="relative mt-1">
+                                            <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-slate-400" />
+                                            <Input
+                                                type="email"
+                                                placeholder="captain@airline.com"
+                                                value={email}
+                                                onChange={(e) => setEmail(e.target.value)}
+                                                className="pl-9 h-11 bg-slate-50 dark:bg-slate-900/50 border-slate-200 dark:border-slate-700 focus:border-blue-500 transition-all font-medium text-sm rounded-xl"
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <Label className="text-[10px] font-black uppercase tracking-widest text-slate-500 dark:text-slate-400 transition-colors">Password</Label>
+                                        <div className="relative mt-1">
+                                            <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-slate-400" />
+                                            <Input
+                                                type="password"
+                                                placeholder="••••••••"
+                                                value={password}
+                                                onChange={(e) => setPassword(e.target.value)}
+                                                className="pl-9 h-11 bg-slate-50 dark:bg-slate-900/50 border-slate-200 dark:border-slate-700 focus:border-blue-500 transition-all font-medium text-sm rounded-xl"
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+
+                                    {mode === 'signin' && (
+                                        <div className="text-right">
+                                            <button type="button" className="text-[10px] font-bold text-blue-600 dark:text-blue-400 uppercase tracking-widest hover:underline">Forgot Password?</button>
+                                        </div>
+                                    )}
+
+                                    <Button
+                                        disabled={isLoading}
+                                        className="w-full h-12 bg-blue-600 hover:bg-blue-500 text-white font-bold tracking-widest uppercase shadow-lg shadow-blue-600/20 active:scale-95 transition-all mt-4 rounded-xl"
+                                    >
+                                        {isLoading ? (
+                                            <div className="flex items-center gap-2">
+                                                <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                                                PROCESSING...
                                             </div>
-                                        </motion.div>
-                                    )}
-                                </AnimatePresence>
-
-                                <div>
-                                    <Label className="text-xs font-black uppercase tracking-widest text-slate-500 dark:text-slate-400 transition-colors">Email Address</Label>
-                                    <div className="relative mt-1">
-                                        <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
-                                        <Input
-                                            type="email"
-                                            placeholder="captain@airline.com"
-                                            value={email}
-                                            onChange={(e) => setEmail(e.target.value)}
-                                            className="pl-10 h-12 bg-slate-50 dark:bg-slate-900/50 border-slate-200 dark:border-slate-700 focus:border-blue-500 transition-all font-medium"
-                                            required
-                                        />
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <Label className="text-xs font-black uppercase tracking-widest text-slate-500 dark:text-slate-400 transition-colors">Password</Label>
-                                    <div className="relative mt-1">
-                                        <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
-                                        <Input
-                                            type="password"
-                                            placeholder="••••••••"
-                                            value={password}
-                                            onChange={(e) => setPassword(e.target.value)}
-                                            className="pl-10 h-12 bg-slate-50 dark:bg-slate-900/50 border-slate-200 dark:border-slate-700 focus:border-blue-500 transition-all font-medium"
-                                            required
-                                        />
-                                    </div>
-                                </div>
-
-                                {mode === 'signin' && (
-                                    <div className="text-right">
-                                        <button type="button" className="text-[10px] font-bold text-blue-600 dark:text-blue-400 uppercase tracking-widest hover:underline">Forgot Password?</button>
-                                    </div>
-                                )}
-
-                                <Button
-                                    disabled={isLoading}
-                                    className="w-full h-12 bg-blue-600 hover:bg-blue-500 text-white font-bold tracking-widest uppercase shadow-lg shadow-blue-600/20 active:scale-95 transition-all mt-4"
-                                >
-                                    {isLoading ? (
-                                        <div className="flex items-center gap-2">
-                                            <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-                                            PROCESSING...
-                                        </div>
-                                    ) : (
-                                        <div className="flex items-center gap-2">
-                                            {mode === 'signin' ? 'SIGN IN' : 'SIGN UP'}
-                                            <ArrowRight className="h-4 w-4" />
-                                        </div>
-                                    )}
-                                </Button>
-                            </form>
-                        </CardContent>
-                    </Card>
-                </motion.div>
+                                        ) : (
+                                            <div className="flex items-center gap-2">
+                                                {mode === 'signin' ? 'SIGN IN' : 'SIGN UP'}
+                                            </div>
+                                        )}
+                                    </Button>
+                                </form>
+                            </CardContent>
+                        </Card>
+                    </motion.div>
+                </div>
             </div>
         </div>
     );
