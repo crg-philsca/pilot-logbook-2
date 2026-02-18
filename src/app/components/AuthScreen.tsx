@@ -66,11 +66,9 @@ export function AuthScreen({ onAuthSuccess }: AuthScreenProps) {
                 >
                     {/* Logo Section */}
                     <div className="flex flex-col items-center mb-8">
-                        <div className="relative mb-4">
-                            <div className="absolute inset-0 bg-blue-500 rounded-3xl blur-xl opacity-20 animate-pulse"></div>
-                            <div className="bg-slate-900/50 p-2 rounded-3xl border border-slate-700 shadow-2xl relative z-10 transition-colors backdrop-blur-md overflow-hidden">
-                                <img src="/app-logo.png" className="h-20 w-20 object-contain brightness-110" alt="App Logo" />
-                            </div>
+                        <div className="relative mb-6">
+                            <div className="absolute inset-0 bg-blue-500/10 rounded-full blur-2xl animate-pulse"></div>
+                            <img src="/app-logo.png" className="h-24 w-24 object-contain relative z-10 brightness-110 drop-shadow-[0_0_15px_rgba(37,99,235,0.2)]" alt="App Logo" />
                         </div>
                         <h1 className="text-3xl font-black tracking-tighter text-slate-900 dark:text-white transition-colors uppercase">
                             FLIGHT<span className="text-blue-600 dark:text-blue-400">LOG</span>
