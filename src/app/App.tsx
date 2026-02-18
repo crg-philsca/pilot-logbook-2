@@ -178,7 +178,7 @@ export default function App() {
   };
 
   return (
-    <div className={`h-[100dvh] w-full max-w-[480px] mx-auto overflow-hidden flex flex-col relative shadow-2xl safe-area-top safe-area-bottom transition-colors duration-500 ${currentTheme === 'dark' ? 'bg-slate-950 dark' : 'bg-slate-50'}`}>
+    <div className={`h-[100dvh] w-full max-w-[480px] mx-auto overflow-hidden flex flex-col relative shadow-2xl safe-area-top transition-colors duration-500 ${currentTheme === 'dark' ? 'bg-slate-950 dark' : 'bg-slate-50'}`}>
       {/* Main Content Area with Transitions */}
       <div className={`flex-1 overflow-hidden relative transition-colors duration-500 ${currentTheme === 'dark' ? 'bg-slate-900' : 'bg-white'}`}>
         <AnimatePresence initial={false} custom={direction} mode='popLayout'>
@@ -277,9 +277,7 @@ export default function App() {
 
       {/* Bottom Navigation - Hide on sub-screens */}
       {['logbook', 'stats', 'profile'].includes(currentScreen) && (
-        <div className="absolute bottom-0 left-0 right-0 z-50">
-          <BottomNavigation activeTab={activeTab} onTabChange={handleTabChange} />
-        </div>
+        <BottomNavigation activeTab={activeTab} onTabChange={handleTabChange} />
       )}
 
       <Toaster position="top-center" />

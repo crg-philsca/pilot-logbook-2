@@ -76,7 +76,7 @@ export function StatisticsScreen({ flights }: StatisticsScreenProps) {
       </div>
 
       {/* Content */}
-      <div className="flex-1 overflow-y-auto px-6 pb-32 space-y-8 z-10">
+      <div className="flex-1 overflow-y-auto px-6 pt-6 pb-20 space-y-8 z-10">
         {/* Stats Grid */}
         <div className="grid grid-cols-2 gap-4">
           {stats.map((stat, i) => {
