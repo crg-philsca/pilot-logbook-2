@@ -21,12 +21,28 @@ export function ProfileScreen({ flights, onOpenSettings }: ProfileScreenProps) {
   const [isEditing, setIsEditing] = useState(false);
 
   const handleSaveProfile = () => {
-    localStorage.setItem('pilot_name', name);
-    localStorage.setItem('pilot_license', license);
-    localStorage.setItem('pilot_rank', rank);
-    setIsEditing(false);
-    toast.success('Pilot profile updated');
+    try {
+      localStorage.setItem('pilot_name', name);
+      localStorage.setItem('pilot_license', license);
+      localStorage.setItem('pilot_rank', rank);
+      setIsEditing(false);
+      toast.success('Pilot profile updated');
+    } catch (error) {
+      console.error('Failed to save profile', error);
+      toast.error('Failed to save profile');
+    }
   };
+
+  // Ensure changes persist by saving on unmount as well
+  useEffect(() => {
+    return () => {
+      if (isEditing) {
+        localStorage.setItem('pilot_name', name);
+        localStorage.setItem('pilot_license', license);
+        localStorage.setItem('pilot_rank', rank);
+      }
+    };
+  }, [name, license, rank, isEditing]);
 
   const handleExportPDF = () => {
     const doc = new jsPDF();
@@ -70,10 +86,10 @@ export function ProfileScreen({ flights, onOpenSettings }: ProfileScreenProps) {
       <div className="absolute top-0 left-0 right-0 h-64 bg-gradient-to-b from-blue-500/10 dark:from-blue-900/20 to-transparent pointer-events-none" />
 
       {/* Header */}
-      <div className="px-6 pt-12 pb-8 z-10">
-        <div className="flex justify-between items-start">
+      <div className="px-6 pt-safe pb-8 z-10">
+        <div className="flex justify-between items-start mt-8">
           <div>
-            <div className="text-[10px] text-blue-500 font-bold tracking-[0.2em] uppercase mb-1">Pilot Information</div>
+            <div className="text-[10px] text-blue-500 font-bold tracking-[0.2em] uppercase mb-1 transition-colors">Commander Info</div>
             <h1 className="text-3xl font-black tracking-tight text-slate-900 dark:text-white transition-colors">PROFILE</h1>
           </div>
           <Button

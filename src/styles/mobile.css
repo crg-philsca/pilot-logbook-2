@@ -2,7 +2,9 @@
 
 /* Ensure mobile viewport is properly set */
 @layer base {
-  html, body {
+
+  html,
+  body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     touch-action: manipulation;
@@ -15,7 +17,11 @@
   }
 
   /* Improve tap targets for mobile */
-  button, a, input, select, textarea {
+  button,
+  a,
+  input,
+  select,
+  textarea {
     -webkit-tap-highlight-color: rgba(37, 99, 235, 0.1);
   }
 
@@ -27,26 +33,37 @@
 
 /* Custom utility classes for the app */
 @layer utilities {
+
   /* Active state scale */
   .active\:scale-98:active {
     transform: scale(0.98);
   }
 
-  /* Safe area padding for mobile devices */
-  .safe-area-top {
+  .safe-area-top,
+  .pt-safe {
     padding-top: env(safe-area-inset-top);
   }
 
-  .safe-area-bottom {
+  .safe-area-bottom,
+  .pb-safe {
     padding-bottom: env(safe-area-inset-bottom);
   }
 
-  .safe-area-left {
+  .safe-area-left,
+  .pl-safe {
     padding-left: env(safe-area-inset-left);
   }
 
-  .safe-area-right {
+  .safe-area-right,
+  .pr-safe {
     padding-right: env(safe-area-inset-right);
+  }
+}
+
+/* Remove forced color scheme that might conflict with our theme toggle */
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark light;
   }
 }
 
@@ -55,7 +72,8 @@ input[type="text"],
 input[type="number"],
 input[type="date"],
 textarea {
-  font-size: 16px !important; /* Prevents zoom on iOS */
+  font-size: 16px !important;
+  /* Prevents zoom on iOS */
 }
 
 /* Custom scrollbar for better aesthetics */
@@ -80,13 +98,16 @@ textarea {
 /* Enhance touch interactions */
 @media (hover: none) and (pointer: coarse) {
   /* This is a mobile/touch device */
-  
+
   /* Increase tap target sizes */
-  button, a, input[type="checkbox"], input[type="radio"] {
+  button,
+  a,
+  input[type="checkbox"],
+  input[type="radio"] {
     min-height: 44px;
     min-width: 44px;
   }
-  
+
   /* Remove hover effects on touch devices */
   .hover\:shadow-lg:hover {
     box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
@@ -95,11 +116,12 @@ textarea {
 
 /* Responsive breakpoints */
 @media (max-width: 380px) {
+
   /* Extra small devices */
   .text-3xl {
     font-size: 1.5rem;
   }
-  
+
   .text-2xl {
     font-size: 1.25rem;
   }
@@ -110,11 +132,11 @@ textarea {
   .h-14 {
     height: 3rem;
   }
-  
+
   .h-16 {
     height: 3.5rem;
   }
-  
+
   .py-6 {
     padding-top: 1rem;
     padding-bottom: 1rem;
@@ -127,6 +149,7 @@ textarea {
     transform: translateY(100%);
     opacity: 0;
   }
+
   to {
     transform: translateY(0);
     opacity: 1;
@@ -138,6 +161,7 @@ textarea {
     transform: translateY(-100%);
     opacity: 0;
   }
+
   to {
     transform: translateY(0);
     opacity: 1;
@@ -148,6 +172,7 @@ textarea {
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -162,6 +187,7 @@ textarea {
 
 /* Accessibility improvements */
 @media (prefers-reduced-motion: reduce) {
+
   *,
   *::before,
   *::after {
@@ -176,11 +202,11 @@ textarea {
   .bg-blue-600 {
     background-color: #1e40af;
   }
-  
+
   .text-blue-600 {
     color: #1e40af;
   }
-  
+
   .border-blue-600 {
     border-color: #1e40af;
   }
@@ -189,6 +215,7 @@ textarea {
 /* Dark mode adjustments (if needed) */
 @media (prefers-color-scheme: dark) {
   :root {
-    color-scheme: light; /* Force light mode for aviation safety */
+    color-scheme: light;
+    /* Force light mode for aviation safety */
   }
 }
