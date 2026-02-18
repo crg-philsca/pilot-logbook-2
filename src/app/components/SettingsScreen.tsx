@@ -58,7 +58,7 @@ export function SettingsScreen({ onBack, onClearData, currentTheme, onThemeChang
             </div>
 
             {/* Content */}
-            <div className="flex-1 overflow-y-auto px-6 py-6 space-y-6 pb-32 z-10">
+            <div className="flex-1 overflow-y-auto px-6 py-4 space-y-4 pb-16 z-10">
 
                 {/* Appearance */}
                 <section>
@@ -135,7 +135,7 @@ export function SettingsScreen({ onBack, onClearData, currentTheme, onThemeChang
                                     </div>
                                     <div>
                                         <span className="text-orange-600 dark:text-orange-400 font-medium block transition-colors">Hard Reset App</span>
-                                        <span className="text-slate-500 text-xs transition-colors">Fix "Nothing Changed" issues</span>
+                                        <span className="text-slate-500 text-xs transition-colors">Fix app issues</span>
                                     </div>
                                 </div>
                             </div>
