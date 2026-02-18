@@ -14,7 +14,7 @@ export function BottomNavigation({ activeTab, onTabChange }: BottomNavigationPro
   ];
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border-t border-slate-200 dark:border-slate-800 shadow-[0_-5px_20px_rgba(0,0,0,0.05)] dark:shadow-[0_-5px_20px_rgba(0,0,0,0.3)] z-50 pb-[env(safe-area-inset-bottom)] transition-colors duration-500">
+    <div className="fixed bottom-0 left-0 right-0 bg-white/90 dark:bg-slate-950/90 backdrop-blur-2xl border-none shadow-[0_-8px_30px_rgba(0,0,0,0.05)] dark:shadow-[0_-8px_30px_rgba(0,0,0,0.4)] z-50 pb-[env(safe-area-inset-bottom)] transition-colors duration-500">
       <nav className="grid grid-cols-3 h-16 max-w-[480px] mx-auto" role="navigation" aria-label="Bottom navigation">
         {tabs.map((tab) => {
           const Icon = tab.icon;
