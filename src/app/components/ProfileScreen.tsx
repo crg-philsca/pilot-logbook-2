@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { User, Award, FileDown, Settings, Save, ShieldCheck } from 'lucide-react';
+import { User, Award, FileDown, Settings, Save, ShieldCheck, LogOut } from 'lucide-react';
 import { Card, CardContent } from './ui/card';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
@@ -193,15 +193,16 @@ export function ProfileScreen({ flights, onOpenSettings, onLogout }: ProfileScre
           </Button>
 
           <Button
-            variant="ghost"
-            className="w-full h-12 text-sm text-red-500 hover:text-red-400 hover:bg-red-500/5 transition-all mt-4 font-bold tracking-widest uppercase"
+            variant="outline"
+            className="w-full h-14 text-base bg-red-50 dark:bg-red-500/10 border-red-200 dark:border-red-900/30 text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-500/20 active:scale-98 transition-all rounded-xl justify-start px-6 gap-3"
             onClick={() => {
               if (confirm('Are you sure you want to sign out?')) {
                 onLogout();
               }
             }}
           >
-            Sign Out of Fleet App
+            <LogOut className="h-5 w-5" />
+            Sign Out
           </Button>
         </div>
 
