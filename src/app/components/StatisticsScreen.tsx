@@ -65,12 +65,12 @@ export function StatisticsScreen({ flights }: StatisticsScreenProps) {
   ];
 
   return (
-    <div className="flex flex-col h-full bg-slate-50 dark:bg-slate-900 pb-20 relative overflow-hidden transition-colors duration-500">
+    <div className="flex flex-col h-full bg-gradient-to-b from-slate-50 to-white dark:from-slate-950 dark:to-slate-900 relative transition-colors duration-500">
       {/* Background Decor */}
       <div className="absolute top-0 left-0 right-0 h-64 bg-gradient-to-b from-blue-500/10 dark:from-blue-900/20 to-transparent pointer-events-none" />
 
       {/* Header */}
-      <div className="px-6 pt-12 pb-6 z-10">
+      <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border-b border-slate-200 dark:border-slate-800 px-6 pt-14 pb-6 shadow-xl z-20 sticky top-0 transition-colors duration-500">
         <div className="text-[10px] text-blue-500 font-bold tracking-[0.2em] uppercase mb-1">Performance Metrics</div>
         <h1 className="text-3xl font-black tracking-tight text-slate-900 dark:text-white mb-6 transition-colors">STATISTICS</h1>
       </div>
@@ -82,8 +82,8 @@ export function StatisticsScreen({ flights }: StatisticsScreenProps) {
           {stats.map((stat, i) => {
             const Icon = stat.icon;
             return (
-              <Card key={i} className={`border ${stat.borderColor} bg-white dark:bg-slate-800/50 backdrop-blur-sm shadow-lg overflow-hidden relative group transition-colors`}>
-                <CardContent className="p-4 relative z-10">
+              <Card key={i} className={`border ${stat.borderColor} bg-white dark:bg-slate-800/40 backdrop-blur-md shadow-lg overflow-hidden relative group transition-colors`}>
+                <CardContent className="p-4 relative z-10 text-center flex flex-col items-center">
                   <div className={`rounded-lg p-2 w-fit mb-3 ${stat.bgColor}`}>
                     <Icon className={`h-5 w-5 ${stat.color}`} />
                   </div>

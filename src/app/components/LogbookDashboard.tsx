@@ -80,7 +80,7 @@ export function LogbookDashboard({ flights, onFlightClick, onAddFlight, totalHou
   };
 
   return (
-    <div className="flex flex-col h-full bg-slate-50 dark:bg-slate-950 relative transition-colors duration-500">
+    <div className="flex flex-col h-full bg-gradient-to-b from-slate-50 to-white dark:from-slate-950 dark:to-slate-900 relative transition-colors duration-500">
       {/* Update Available Banner */}
       {isRefreshing && (
         <div className="bg-blue-600 text-white px-4 py-3 text-sm font-medium flex justify-between items-center animate-in slide-in-from-top-2 absolute top-0 left-0 right-0 z-50">
@@ -92,16 +92,15 @@ export function LogbookDashboard({ flights, onFlightClick, onAddFlight, totalHou
       )}
 
       {/* Header with Cockpit Design */}
-      <div className="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 px-6 pt-14 pb-6 shadow-2xl z-20 sticky top-0 transition-colors duration-500">
+      <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border-b border-slate-200 dark:border-slate-800 px-6 pt-14 pb-6 shadow-xl z-20 sticky top-0 transition-colors duration-500">
         <div className="flex items-center justify-between mb-6">
           <div>
-            <div className="text-[10px] text-blue-500 font-bold tracking-[0.2em] uppercase mb-1 drop-shadow-sm">Flight Deck</div>
-            <h1 className="text-3xl font-black tracking-tight text-slate-900 dark:text-white drop-shadow-sm transition-colors duration-500">LOGBOOK</h1>
+            <h1 className="text-3xl font-black tracking-tight text-slate-900 dark:text-white drop-shadow-sm transition-colors duration-500">FLIGHT LOGBOOK</h1>
           </div>
 
           <div className="flex items-center gap-3">
             {/* Total Hours Badge */}
-            <div className="bg-slate-100 dark:bg-slate-800/80 backdrop-blur-md rounded-xl px-4 py-2 text-right border border-slate-200 dark:border-slate-700/50 shadow-lg min-w-[90px] relative overflow-hidden group transition-colors duration-500">
+            <div className="bg-slate-100 dark:bg-slate-800/80 backdrop-blur-md rounded-xl px-4 py-2 text-center border border-slate-200 dark:border-slate-700/50 shadow-lg min-w-[90px] relative overflow-hidden group transition-colors duration-500">
               <div className="absolute inset-0 bg-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
               <div className="text-2xl font-mono font-bold text-slate-900 dark:text-white tracking-tighter leading-none transition-colors duration-500">{totalHours.toFixed(1)}</div>
               <div className="text-[8px] uppercase tracking-widest text-slate-500 dark:text-slate-400 mt-1 font-bold">Hours</div>
@@ -139,7 +138,7 @@ export function LogbookDashboard({ flights, onFlightClick, onAddFlight, totalHou
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 10, scale: 0.95 }}
                 transition={{ duration: 0.2 }}
-                className="absolute top-14 right-0 w-72 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-2xl p-4 z-50"
+                className="absolute top-14 right-0 w-[calc(100vw-3rem)] max-w-72 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-2xl p-4 z-50"
               >
                 <div className="flex justify-between items-center mb-4">
                   <span className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest">Filter Date Range</span>
@@ -249,7 +248,7 @@ export function LogbookDashboard({ flights, onFlightClick, onAddFlight, totalHou
       </div>
 
       {/* Floating Add Button */}
-      <div className="fixed bottom-24 right-6 z-30">
+      <div className="fixed bottom-28 right-6 z-30">
         <Button
           onClick={onAddFlight}
           size="lg"

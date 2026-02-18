@@ -1,6 +1,6 @@
 {
     "version": 2,
-    "name": "pilot-logbook-v3",
+    "name": "pilot-logbook-2",
     "builds": [
         {
             "src": "package.json",

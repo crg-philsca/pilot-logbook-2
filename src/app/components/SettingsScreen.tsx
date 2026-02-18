@@ -34,7 +34,7 @@ export function SettingsScreen({ onBack, onClearData, currentTheme, onThemeChang
     };
 
     return (
-        <div className={`flex flex-col h-full pb-20 relative overflow-hidden transition-colors duration-500 ${currentTheme === 'dark' ? 'bg-slate-900' : 'bg-slate-50'}`}>
+        <div className={`flex flex-col h-full bg-gradient-to-b from-slate-50 to-white dark:from-slate-950 dark:to-slate-900 pb-20 relative overflow-hidden transition-colors duration-500`}>
             {/* Background Decor */}
             <div className={`absolute top-0 left-0 right-0 h-64 bg-gradient-to-b pointer-events-none ${currentTheme === 'dark' ? 'from-blue-900/20' : 'from-blue-500/10'} to-transparent`} />
 

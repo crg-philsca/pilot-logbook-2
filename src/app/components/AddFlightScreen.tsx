@@ -52,7 +52,7 @@ export function AddFlightScreen({ onBack, onSave, editingFlight }: AddFlightScre
   };
 
   return (
-    <div className="flex flex-col h-full bg-slate-50 dark:bg-slate-900 pb-20 relative overflow-hidden transition-colors duration-500">
+    <div className="flex flex-col h-full bg-gradient-to-b from-slate-50 to-white dark:from-slate-950 dark:to-slate-900 pb-20 relative overflow-hidden transition-colors duration-500">
       {/* Background Decor */}
       <div className="absolute top-0 left-0 right-0 h-64 bg-gradient-to-b from-blue-500/10 dark:from-blue-900/20 to-transparent pointer-events-none" />
 
