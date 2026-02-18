@@ -70,13 +70,13 @@ export function StatisticsScreen({ flights }: StatisticsScreenProps) {
       <div className="absolute top-0 left-0 right-0 h-64 bg-gradient-to-b from-blue-500/10 dark:from-blue-900/20 to-transparent pointer-events-none" />
 
       {/* Header */}
-      <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border-b border-slate-200 dark:border-slate-800 px-6 pt-14 pb-6 shadow-xl z-20 sticky top-0 transition-colors duration-500">
+      <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border-b border-slate-200 dark:border-slate-800 px-6 pt-safe pb-6 shadow-xl z-20 sticky top-0 transition-colors duration-500">
         <div className="text-[10px] text-blue-500 font-bold tracking-[0.2em] uppercase mb-1">Performance Metrics</div>
         <h1 className="text-3xl font-black tracking-tight text-slate-900 dark:text-white mb-6 transition-colors">STATISTICS</h1>
       </div>
 
       {/* Content */}
-      <div className="flex-1 overflow-y-auto px-6 pt-6 pb-20 space-y-8 z-10">
+      <div className="flex-1 overflow-y-auto px-6 pt-6 pb-32 space-y-8 z-10">
         {/* Stats Grid */}
         <div className="grid grid-cols-2 gap-4">
           {stats.map((stat, i) => {

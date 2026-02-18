@@ -82,7 +82,7 @@ export function ProfileScreen({ flights, onOpenSettings, onLogout }: ProfileScre
   };
 
   return (
-    <div className="flex flex-col h-full bg-gradient-to-b from-slate-50 to-white dark:from-slate-950 dark:to-slate-900 pb-20 relative overflow-hidden transition-colors duration-500">
+    <div className="flex flex-col h-full bg-gradient-to-b from-slate-50 to-white dark:from-slate-950 dark:to-slate-900 pb-24 relative overflow-hidden transition-colors duration-500">
       {/* Background Decor */}
       <div className="absolute top-0 left-0 right-0 h-64 bg-gradient-to-b from-blue-500/10 dark:from-blue-900/20 to-transparent pointer-events-none" />
 
@@ -112,7 +112,7 @@ export function ProfileScreen({ flights, onOpenSettings, onLogout }: ProfileScre
       </div>
 
       {/* Content */}
-      <div className="flex-1 overflow-y-auto px-6 space-y-6 pb-40 z-10">
+      <div className="flex-1 overflow-y-auto px-6 space-y-6 pb-24 z-10">
         {/* Profile Card */}
         <Card className="bg-white dark:bg-slate-800/50 backdrop-blur-md border border-slate-200 dark:border-slate-700 shadow-xl overflow-hidden transition-colors">
           <CardContent className="p-6">

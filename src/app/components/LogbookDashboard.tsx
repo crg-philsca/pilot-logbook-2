@@ -163,7 +163,7 @@ export function LogbookDashboard({ flights, onFlightClick, onAddFlight, totalHou
       </div>
 
       {/* Flight List */}
-      <div className="flex-1 overflow-y-auto px-6 py-6 space-y-4 pb-32 bg-slate-50 dark:bg-slate-950/50 transition-colors duration-500">
+      <div className="flex-1 overflow-y-auto px-6 pt-4 space-y-4 pb-32 bg-slate-50 dark:bg-slate-950/50 transition-colors duration-500">
         {filteredFlights.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-20 text-center px-6 opacity-60">
             <Plane className="h-16 w-16 text-slate-300 dark:text-slate-700 mb-4 transition-colors" />
