@@ -184,8 +184,8 @@ export function ProfileScreen({ flights, onOpenSettings, onLogout }: ProfileScre
           </Button>
 
           <Button
-            variant="outline"
-            className="w-full h-14 text-base bg-white dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700/50 active:scale-98 transition-all rounded-xl justify-start px-6 gap-3"
+            variant="default"
+            className="w-full h-14 text-base bg-slate-100 dark:bg-slate-800 border-none text-slate-900 dark:text-white hover:bg-slate-200 dark:hover:bg-slate-700 active:scale-98 transition-all rounded-xl justify-start px-6 gap-3 shadow-lg"
             onClick={onOpenSettings}
           >
             <Settings className="h-5 w-5" />
@@ -193,8 +193,8 @@ export function ProfileScreen({ flights, onOpenSettings, onLogout }: ProfileScre
           </Button>
 
           <Button
-            variant="outline"
-            className="w-full h-14 text-base bg-red-50 dark:bg-red-500/10 border-red-200 dark:border-red-900/30 text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-500/20 active:scale-98 transition-all rounded-xl justify-start px-6 gap-3"
+            variant="default"
+            className="w-full h-14 text-base bg-red-600 hover:bg-red-500 text-white shadow-lg shadow-red-600/20 active:scale-98 transition-all rounded-xl justify-start px-6 gap-3"
             onClick={() => {
               if (confirm('Are you sure you want to sign out?')) {
                 onLogout();

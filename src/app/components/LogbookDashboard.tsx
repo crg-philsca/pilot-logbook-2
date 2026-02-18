@@ -95,7 +95,7 @@ export function LogbookDashboard({ flights, onFlightClick, onAddFlight, totalHou
       <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border-b border-slate-200 dark:border-slate-800 px-6 pt-safe pb-4 shadow-xl z-20 sticky top-0 transition-colors duration-500">
         <div className="flex items-center justify-between mt-2 mb-4">
           <div>
-            <h1 className="text-3xl font-black tracking-tight text-slate-900 dark:text-white drop-shadow-sm transition-colors duration-500 uppercase">Digital Pilot Logbook</h1>
+            <h1 className="text-3xl font-black tracking-tight text-slate-900 dark:text-white drop-shadow-sm transition-colors duration-500 uppercase">Pilot Logbook</h1>
           </div>
 
           <div className="flex items-center gap-3">
