@@ -9,10 +9,14 @@ import { BottomNavigation } from './components/BottomNavigation';
 import { Toaster } from './components/ui/sonner';
 import { toast } from 'sonner';
 import { AnimatePresence, motion } from 'framer-motion';
+import { AuthScreen } from './components/AuthScreen';
 
 type Screen = 'logbook' | 'add' | 'details' | 'stats' | 'profile' | 'settings';
 
 export default function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(() => {
+    return localStorage.getItem('is_authenticated') === 'true';
+  });
   const [currentScreen, setCurrentScreen] = useState<Screen>('logbook');
   const [activeTab, setActiveTab] = useState('logbook');
 
@@ -177,6 +181,12 @@ export default function App() {
     setCurrentScreen('settings');
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem('is_authenticated');
+    setIsAuthenticated(false);
+    toast.success('Signed out successfully');
+  };
+
   return (
     <div className={`fixed inset-0 w-full max-w-[480px] mx-auto overflow-hidden flex flex-col shadow-2xl transition-colors duration-500 ${currentTheme === 'dark' ? 'bg-slate-950 dark' : 'bg-slate-50'}`}>
       {/* Main Content Area with Transitions */}
@@ -214,69 +224,75 @@ export default function App() {
             }}
             className="absolute inset-0 w-full h-full bg-slate-900"
           >
-            {currentScreen === 'logbook' && (
-              <LogbookDashboard
-                flights={flights}
-                onFlightClick={handleFlightClick}
-                onAddFlight={handleAddFlight}
-                totalHours={totalHours}
-              />
-            )}
+            {!isAuthenticated ? (
+              <AuthScreen onAuthSuccess={() => setIsAuthenticated(true)} />
+            ) : (
+              <>
+                {currentScreen === 'logbook' && (
+                  <LogbookDashboard
+                    flights={flights}
+                    onFlightClick={handleFlightClick}
+                    onAddFlight={handleAddFlight}
+                    totalHours={totalHours}
+                  />
+                )}
 
-            {currentScreen === 'add' && (
-              <AddFlightScreen
-                onBack={() => {
-                  setDirection(-1);
-                  setCurrentScreen(editingFlight ? 'details' : 'logbook');
-                }}
-                onSave={handleSaveFlight}
-                editingFlight={editingFlight}
-              />
-            )}
+                {currentScreen === 'add' && (
+                  <AddFlightScreen
+                    onBack={() => {
+                      setDirection(-1);
+                      setCurrentScreen(editingFlight ? 'details' : 'logbook');
+                    }}
+                    onSave={handleSaveFlight}
+                    editingFlight={editingFlight}
+                  />
+                )}
 
-            {currentScreen === 'details' && selectedFlight && (
-              <FlightDetailsScreen
-                flight={selectedFlight}
-                onBack={() => {
-                  setDirection(-1);
-                  setCurrentScreen('logbook');
-                }}
-                onEdit={handleEditFlight}
-                onDelete={handleDeleteFlight}
-              />
-            )}
+                {currentScreen === 'details' && selectedFlight && (
+                  <FlightDetailsScreen
+                    flight={selectedFlight}
+                    onBack={() => {
+                      setDirection(-1);
+                      setCurrentScreen('logbook');
+                    }}
+                    onEdit={handleEditFlight}
+                    onDelete={handleDeleteFlight}
+                  />
+                )}
 
-            {currentScreen === 'stats' && (
-              <StatisticsScreen flights={flights} />
-            )}
+                {currentScreen === 'stats' && (
+                  <StatisticsScreen flights={flights} />
+                )}
 
-            {currentScreen === 'profile' && (
-              <ProfileScreen flights={flights} onOpenSettings={handleOpenSettings} />
-            )}
+                {currentScreen === 'profile' && (
+                  <ProfileScreen flights={flights} onOpenSettings={handleOpenSettings} onLogout={handleLogout} />
+                )}
 
-            {currentScreen === 'settings' && (
-              <SettingsScreen
-                currentTheme={currentTheme}
-                onThemeChange={handleThemeChange}
-                onBack={() => {
-                  setDirection(-1);
-                  setCurrentScreen('profile');
-                }}
-                onClearData={() => {
-                  if (confirm('Are you sure? This will delete all flights permanently.')) {
-                    setFlights([]);
-                    localStorage.removeItem('pilot_flights');
-                    toast.success('All data cleared');
-                  }
-                }}
-              />
+                {currentScreen === 'settings' && (
+                  <SettingsScreen
+                    currentTheme={currentTheme}
+                    onThemeChange={handleThemeChange}
+                    onBack={() => {
+                      setDirection(-1);
+                      setCurrentScreen('profile');
+                    }}
+                    onClearData={() => {
+                      if (confirm('Are you sure? This will delete all flights permanently.')) {
+                        setFlights([]);
+                        localStorage.removeItem('pilot_flights');
+                        toast.success('All data cleared');
+                      }
+                    }}
+                  />
+                )}
+              </>
             )}
           </motion.div>
         </AnimatePresence>
       </div>
 
-      {/* Bottom Navigation - Hide on sub-screens */}
-      {['logbook', 'stats', 'profile'].includes(currentScreen) && (
+      {/* Bottom Navigation - Hide on sub-screens or if not authenticated */}
+      {isAuthenticated && ['logbook', 'stats', 'profile'].includes(currentScreen) && (
         <BottomNavigation activeTab={activeTab} onTabChange={handleTabChange} />
       )}
 

@@ -12,9 +12,10 @@ import autoTable from 'jspdf-autotable';
 interface ProfileScreenProps {
   flights: FlightEntry[];
   onOpenSettings: () => void;
+  onLogout: () => void;
 }
 
-export function ProfileScreen({ flights, onOpenSettings }: ProfileScreenProps) {
+export function ProfileScreen({ flights, onOpenSettings, onLogout }: ProfileScreenProps) {
   const [name, setName] = useState(() => localStorage.getItem('pilot_name') || 'Captain Pilot');
   const [license, setLicense] = useState(() => localStorage.getItem('pilot_license') || 'ATP-123456');
   const [rank, setRank] = useState(() => localStorage.getItem('pilot_rank') || 'Captain');
@@ -189,6 +190,18 @@ export function ProfileScreen({ flights, onOpenSettings }: ProfileScreenProps) {
           >
             <Settings className="h-5 w-5" />
             System Settings
+          </Button>
+
+          <Button
+            variant="ghost"
+            className="w-full h-12 text-sm text-red-500 hover:text-red-400 hover:bg-red-500/5 transition-all mt-4 font-bold tracking-widest uppercase"
+            onClick={() => {
+              if (confirm('Are you sure you want to sign out?')) {
+                onLogout();
+              }
+            }}
+          >
+            Sign Out of Fleet App
           </Button>
         </div>
 
