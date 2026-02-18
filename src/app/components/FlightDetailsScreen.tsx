@@ -135,7 +135,6 @@ export function FlightDetailsScreen({ flight, onBack, onEdit, onDelete }: Flight
         <div className="space-y-4">
           <div className="flex justify-between items-center px-1">
             <h2 className="text-sm font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Route Visualization</h2>
-            <span className="text-[10px] text-blue-500 font-bold uppercase cursor-pointer hover:underline">Vector Graphics</span>
           </div>
 
           <Card className="bg-white dark:bg-slate-800/50 backdrop-blur-md border border-slate-200 dark:border-slate-700 shadow-xl overflow-hidden transition-colors">

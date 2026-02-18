@@ -147,12 +147,6 @@ export function SettingsScreen({ onBack, onClearData, currentTheme, onThemeChang
                         </p>
                     </section>
 
-                    <div className="text-center pt-8 pb-4">
-                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 transition-colors">
-                            <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></div>
-                            <span className="text-[10px] text-slate-500 dark:text-slate-400 uppercase tracking-widest font-mono transition-colors">System Online v4.1.0</span>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
